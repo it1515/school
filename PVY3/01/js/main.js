@@ -35,8 +35,14 @@ function detailOfAnimal(data, id) {
 $(function() {
     var animals = [];
     var animal = {};
-    var pageNum = 1;
+    var pageNum;
 
+    pageNumToOne();
+
+    function pageNumToOne() {
+        pageNum = 1;
+        console.log(pageNum);
+    };
 
     function listView(start, count) {
         var animals = listOfAnimals(json, start, count);
@@ -52,21 +58,76 @@ $(function() {
         var animals = listOfAnimals(json, start, count);
         animal = animals[0];
         listView(start + ((pageNum - 1) * 10), count)
-        $('#scroller').html('<ul class="pagination">' +
-            '<li><a href="#">' + "<" + '</a></li>' +
-            '<li><a href="#">' + pageNum + '</a></li>' +
-            '<li><a href="#">' + (pageNum + 1) + '</a></li>' +
-            '<li><a href="#">' + (pageNum + 2) + '</a></li>' +
-            '<li><a href="#">' + (pageNum + 3) + '</a></li>' +
-            '<li><a href="#">' + (pageNum + 4) + '</a></li>' +
-            '<li><a href="#">' + ">" + '</a></li></ul>');
+        if (pageNum > 2) {
+            $('#scroller').html('<ul class="pagination">' +
+                '<li><a href="#" class="page" data-id=' + 1 + '>' + "<" + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 2 + '>' + (pageNum - 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 3 + '>' + (pageNum - 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 4 + '>' + pageNum + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 5 + '>' + (pageNum + 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 6 + '>' + (pageNum + 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 7 + '>' + ">" + '</a></li></ul>');
+        }
+        if (pageNum < 3) {
+            $('#scroller').html('<ul class="pagination">' +
+                '<li><a href="#" class="page" data-id=' + 3 + '>' + (pageNum - 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 4 + '>' + pageNum + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 5 + '>' + (pageNum + 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 6 + '>' + (pageNum + 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 7 + '>' + ">" + '</a></li></ul>');
+        }
+        if (pageNum < 2) {
+            $('#scroller').html('<ul class="pagination">' +
+                '<li><a href="#" class="page" data-id=' + 4 + '>' + pageNum + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 5 + '>' + (pageNum + 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 6 + '>' + (pageNum + 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 7 + '>' + ">" + '</a></li></ul>');
+        }
+        if (pageNum > 55) {
+            $('#scroller').html('<ul class="pagination">' +
+                '<li><a href="#" class="page" data-id=' + 1 + '>' + "<" + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 2 + '>' + (pageNum - 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 3 + '>' + (pageNum - 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 4 + '>' + pageNum + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 5 + '>' + (pageNum + 1) + '</a></li></ul>');
+        }
+        if (pageNum > 56) {
+            $('#scroller').html('<ul class="pagination">' +
+                '<li><a href="#" class="page" data-id=' + 1 + '>' + "<" + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 2 + '>' + (pageNum - 2) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 3 + '>' + (pageNum - 1) + '</a></li>' +
+                '<li><a href="#" class="page" data-id=' + 4 + '>' + pageNum + '</a></li></ul>');
+        }
+        if (pageNum < 1 || pageNum > 57)
+            $('#scroller').html('<ul class="pagination"></ul>');
+        pageClick();
     }
 
-    function changePage(prom) {
-        pageNum = (pageNum + prom);
-        pageScroll(0, 10);
-        console.log(pageNum);
+    function pageClick() {
+        $(".page").click(function() {
+            if ($(this).data('id') == 1)
+                pageNum = pageNum - 5;
+            if ($(this).data('id') == 2)
+                pageNum = pageNum - 2;
+            if ($(this).data('id') == 3)
+                pageNum--;
+            if ($(this).data('id') == 4)
+                pageNum = pageNum;
+            if ($(this).data('id') == 5)
+                pageNum++;
+            if ($(this).data('id') == 6)
+                pageNum = pageNum + 2;
+            if ($(this).data('id') == 7)
+                pageNum = pageNum + 5;
+            try {
+                if (pageNum < 0) throw "can't be more than.";
+            } catch (err) {
+                return '<div>Error: ' + err + '</div>';
+            }
+            pageScroll(0, 10);
+        });
     }
+
 
 
     function detailView(animal) {
