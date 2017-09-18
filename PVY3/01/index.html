@@ -20,6 +20,108 @@
         <header class="jumbotron">
             <h1 class="text-center">ZOO Praha</h1>
         </header>
+        <main>       
+            <div class="container">                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h2>Lexikon zviřat</h2>
+                        <div id="list">                                
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <h2>Podrobné informace</h2>
+                        <article id="detail">
+                                <h3>Jméno zvířete <small>Latinský název</small></h3>
+                                <hr>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#basics" aria-controls="basics" role="tab" data-toggle="tab">Základní údaje</a></li>
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
+                                    <li role="presentation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Popis a foto</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="basics">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Třída</th>
+                                                    <td id="classes">Doe</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Řád</th>
+                                                    <td id="order">Moe</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Kontinenty</th>
+                                                    <td id="continents">Dooley</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Biotop</th>
+                                                    <td id="biotop">Dooley</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Potrava</th>
+                                                    <td id="food">Dooley</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>Kde nás najdete:
+                                            <a href="" id="localities"></a>
+                                        </p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="profile">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h4>Rozměry</h4>
+                                            </div>
+                                            <div class="col-sm-9" id="proportions">
+    
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h4>Rozmnožování</h4>
+                                            </div>
+                                            <div class="col-sm-9" id="reproduction">
+    
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h4>Potrava</h4>
+                                            </div>
+                                            <div class="col-sm-9" id="food_note">
+    
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h4>Biotopy a rozšíření</h4>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p id="biotopes_note"></p>
+                                                <p id="spread_note"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h4>Zajímavosti</h4>
+                                            </div>
+                                            <div class="col-sm-9" id="attractions">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="photo">
+                                        <figure id="description"></figure>
+                                    </div>
+                                </div>                        
+                        </article>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
         <footer>
             <hr>
             <p class="text-center">&copy; Vojtěch Kronika - 2017 - IT3</p>
