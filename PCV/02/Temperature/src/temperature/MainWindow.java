@@ -31,11 +31,13 @@ public class MainWindow extends javax.swing.JFrame {
         btn_close = new javax.swing.JButton();
         btn_info = new javax.swing.JButton();
         slider = new javax.swing.JSlider();
-        number = new javax.swing.JTextField();
-        CelsiusToFahren = new javax.swing.JTextField();
+        inputC = new javax.swing.JTextField();
+        inputF = new javax.swing.JTextField();
         celsius = new javax.swing.JLabel();
         fahren = new javax.swing.JLabel();
         colorPanel = new javax.swing.JPanel();
+        inputK = new javax.swing.JTextField();
+        kelvin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,19 +71,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        number.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        number.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        number.setText("0");
-        number.addKeyListener(new java.awt.event.KeyAdapter() {
+        inputC.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        inputC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        inputC.setText("0");
+        inputC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                numberKeyReleased(evt);
+                inputCKeyReleased(evt);
             }
         });
 
-        CelsiusToFahren.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        CelsiusToFahren.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        CelsiusToFahren.setText("0");
-        CelsiusToFahren.setEnabled(false);
+        inputF.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        inputF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        inputF.setText("0");
+        inputF.setEnabled(false);
 
         celsius.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         celsius.setText("°C");
@@ -108,6 +110,14 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 196, Short.MAX_VALUE)
         );
 
+        inputK.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        inputK.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        inputK.setText("0");
+        inputK.setEnabled(false);
+
+        kelvin.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        kelvin.setText("K");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,18 +130,24 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputC, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(celsius)
-                                .addGap(30, 30, 30)
-                                .addComponent(CelsiusToFahren, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fahren)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(celsius)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(inputF, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fahren))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(inputK)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(kelvin)
+                                        .addGap(21, 21, 21)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(colorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(35, 35, 35))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
                         .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_info)
@@ -144,19 +160,23 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(colorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_info)
+                            .addComponent(btn_close)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CelsiusToFahren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fahren)
-                            .addComponent(celsius)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(colorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_info)
-                    .addComponent(btn_close))
+                            .addComponent(celsius))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kelvin))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -172,41 +192,35 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderStateChanged
-        number.setText(String.valueOf(slider.getValue()));
-        int celsius = Integer.parseInt(String.valueOf(slider.getValue()));
-        celsius = (celsius*9/5+32);
-        String fahren = String.valueOf(celsius);
-        CelsiusToFahren.setText(fahren);
-        int color = Integer.parseInt(String.valueOf(slider.getValue()))+50;
+        inputC.setText(String.valueOf(slider.getValue()));
+        int celsius = slider.getValue();
+        inputF.setText(String.valueOf(celsius*9/5+32));
+        inputK.setText(String.valueOf((float)(celsius+273.15)));
+        int color = slider.getValue()+50;
         if (color>50){
             color = color-50;
-            float red = color * (float) 255/50;
-            int r = 255 - (int)red;
+            int r = 255 - (int)(color * (float) 255/50);
             colorPanel.setBackground( new Color(255,r,r) );
         }
         else{
-            float blue = color * (float) 255/50;
-            int b = (int)blue;
+            int b = (int)(color * (float) 255/50);
             colorPanel.setBackground( new Color(b,b,255) );
         }
         
         
     }//GEN-LAST:event_sliderStateChanged
 
-    private void numberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyReleased
-        String typed = number.getText();
+    private void inputCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputCKeyReleased
+        String typed = inputC.getText();
                 slider.setValue(0);
                 if(!typed.matches("\\d+") && !typed.matches("-\\d+") || typed.length() > 3) {
                     return;
                 }
-                int value = Integer.parseInt(typed);
-                slider.setValue(value);
-    }//GEN-LAST:event_numberKeyReleased
+                slider.setValue(Integer.parseInt(typed));
+    }//GEN-LAST:event_inputCKeyReleased
 
     private void colorPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorPanelMouseClicked
-        int click = Integer.parseInt(String.valueOf(slider.getValue()));
-        click = click+1;
-        slider.setValue(click);
+        slider.setValue(slider.getValue() +1);
     }//GEN-LAST:event_colorPanelMouseClicked
 
     /**
@@ -245,13 +259,15 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CelsiusToFahren;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_info;
     private javax.swing.JLabel celsius;
     private javax.swing.JPanel colorPanel;
     private javax.swing.JLabel fahren;
-    private javax.swing.JTextField number;
+    private javax.swing.JTextField inputC;
+    private javax.swing.JTextField inputF;
+    private javax.swing.JTextField inputK;
+    private javax.swing.JLabel kelvin;
     private javax.swing.JSlider slider;
     // End of variables declaration//GEN-END:variables
 }
