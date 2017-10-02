@@ -39,26 +39,46 @@ public class Areas {
         return Math.pow(a,2);
     }
     
+    float getRectangleArea(float a,float b){
+        return (a*b);
+    }
+    
+    float getTriangleArea(float a,float b){
+        return (a*b/2);
+    }
+    
+    double getCircleArea(float a){
+        return Math.pow(a,2)* Math.PI;
+    }
+    
     void menu(){
         String optChar = "";
         do{
             System.out.println("Vypocet plochy geometrickych utvaru");
             System.out.println("---------------------------------------");
-            System.out.println("S = ctverec, R = obdelnik, T = trojuhelnik, C = kruh, X = close");
+            System.out.println("S = Čtverec, R = Obdelník, T = Trojúhelník, C = Kruh, X = Zavřítx");
             System.out.println("zadej volbu");
             optChar = sc.nextLine();
             try {
                 Options option = Options.valueOf(optChar.toUpperCase());
                 switch(option){
                     case S: System.out.println("Čtverec");
-                    float a = this.readNumber("Zadej stranu a");
-                    System.out.printf("Plocha čtverce o straně %.2f je %.3f",a,this.getSquareArea(a));
+                        float a1 = this.readNumber("Zadej stranu a");
+                        System.out.printf("Plocha čtverce o straně a = %.2f je %.3f\n",a1,this.getSquareArea(a1));
                         break;
                     case R: System.out.println("Obdelník");
+                        float a = this.readNumber("Zadej stranu a");
+                        float b = this.readNumber("Zadej stranu b");
+                        System.out.printf("Plocha obdelníku o stranach a = %.2f, b = %.2f je %.3f\n",a,b,this.getRectangleArea(a,b));
                         break;
                     case T: System.out.println("Trojúhelník");
+                        float a2 = this.readNumber("Zadej stranu a");
+                        float vyskaA = this.readNumber("Zadej výšku na stranu a");
+                        System.out.printf("Plocha trojuhelníku o straně a = %.2f, a výšce = %.2f je %.3f\n",a2,vyskaA,this.getTriangleArea(a2,vyskaA));
                         break;
                     case C: System.out.println("Kruh");
+                        float polomer = this.readNumber("Zadej poloměr kruhu");
+                        System.out.printf("Plocha kruhu o poloměru = %.2f je %.3f\n",polomer,this.getCircleArea(polomer));
                         break;
                 }
             }catch (Exception e) {
