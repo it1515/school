@@ -70,6 +70,7 @@ public class Human {
         return Math.round(this.weight/Math.pow(height,2)*100.0)/100.0;
     }
     
+    @Override
     public String toString(){
         String output = "Name: "+ this.name+ "\n";
         output += "Age: "+this.age+" years\n";

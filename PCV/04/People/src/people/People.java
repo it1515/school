@@ -5,6 +5,9 @@
  */
 package people;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author student
@@ -22,8 +25,24 @@ public class People {
         student.setHeight(1.85f);
         studentka.setHeight(1.72f);
 
-        System.out.println(student.toString());
-        System.out.println(studentka.toString());
+//        System.out.println(student.toString());
+//        System.out.println(studentka.toString());
+        
+        Human sportovec = new Hokejsta("Jarda",45,Human.Sex.MAN,20000);
+        sportovec.setHeight(1.92f);
+        sportovec.setWeight(95);
+        ((Hokejsta) sportovec).setGoals(251);
+        ((Hokejsta) sportovec).setAssists(298);
+//        System.out.println(sportovec.toString());
+        
+        List<Human> lide = new ArrayList<Human>();
+        lide.add(student);
+        lide.add(studentka);
+        lide.add(sportovec);
+        
+        for (Human clovek : lide){
+            System.out.println(clovek.toString());
+        }
     }
     
 }
