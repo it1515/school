@@ -28,11 +28,11 @@ public class People {
 //        System.out.println(student.toString());
 //        System.out.println(studentka.toString());
         
-        Human sportovec = new Hokejsta("Jarda",45,Human.Sex.MAN,20000);
+        Human sportovec = new Hockeyplayer("Jarda",45,Human.Sex.MAN,20000);
         sportovec.setHeight(1.92f);
         sportovec.setWeight(95);
-        ((Hokejsta) sportovec).setGoals(251);
-        ((Hokejsta) sportovec).setAssists(298);
+        ((Hockeyplayer) sportovec).setGoals(251);
+        ((Hockeyplayer) sportovec).setAssists(298);
 //        System.out.println(sportovec.toString());
         
         List<Human> lide = new ArrayList<Human>();

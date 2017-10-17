@@ -9,11 +9,11 @@ package people;
  *
  * @author student
  */
-public class Hokejsta extends Sportsman {
+public class Hockeyplayer extends Sportsman {
     private int goals = 0;
     private int assists = 0;
 
-    public Hokejsta(String jmeno, int age, Sex sex, int energy) {
+    public Hockeyplayer(String jmeno, int age, Sex sex, int energy) {
         super(jmeno, age, sex, energy);
     }
 

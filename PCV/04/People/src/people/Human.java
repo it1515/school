@@ -5,6 +5,8 @@
  */
 package people;
 
+import java.awt.Color;
+
 /**
  *
  * @author student
@@ -18,6 +20,12 @@ public class Human {
     private int weight = 70;
     private float height = (float) 1.80;
     private Sex sex = Sex.MAN;
+    //modifikator protected zabraňuje přístupuj k atributu, ale ten je přístupný pro všechny potomky třídy 
+    protected Color eyes = Color.BLUE;
+    
+    public Human(String jmeno){
+        this.name = jmeno;
+    }
     
     public Human(String jmeno, int age, Sex sex){
         this.name = jmeno;
@@ -72,12 +80,12 @@ public class Human {
     
     @Override
     public String toString(){
-        String output = "Name: "+ this.name+ "\n";
-        output += "Age: "+this.age+" years\n";
-        output += "Weight: "+this.weight+" kg\n";
-        output += "Height: "+this.height+"m\n";
-        output += "Sex: "+this.sex+"\n";
-        output += "BMI: "+this.getBMI()+"\n";
+        String output = this.name + " [Human]\n";
+//        output += "Age: "+this.age+" years\n";
+//        output += "Weight: "+this.weight+" kg\n";
+//        output += "Height: "+this.height+"m\n";
+//        output += "Sex: "+this.sex+"\n";
+//        output += "BMI: "+this.getBMI()+"\n";
         return output;
     }
 }

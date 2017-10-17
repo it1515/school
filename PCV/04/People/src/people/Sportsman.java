@@ -16,6 +16,10 @@ public class Sportsman extends Human {
         super(jmeno, age, sex);
         this.energy = energy;
     }
+    
+    public Sportsman(String jmeno){
+        super(jmeno);
+    }
 
     public int getEnergy() {
         return energy;
@@ -35,6 +39,6 @@ public class Sportsman extends Human {
     
      @Override
     public String toString(){
-        return super.toString() + "Sportsman " + "energy = " +this.energy + "\n";
+        return super.toString() + " [Sportsman]";
     }
 }
