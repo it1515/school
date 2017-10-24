@@ -33,6 +33,7 @@ public class Window extends javax.swing.JFrame {
         popupMenu = new javax.swing.JPopupMenu();
         removeMenu = new javax.swing.JMenuItem();
         removeAllMenu = new javax.swing.JMenuItem();
+        editMenu = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         people = new javax.swing.JList<>();
         nameTextField = new javax.swing.JTextField();
@@ -55,6 +56,16 @@ public class Window extends javax.swing.JFrame {
             }
         });
         popupMenu.add(removeAllMenu);
+
+        editMenu.setActionCommand("edit");
+        editMenu.setLabel("edit");
+        editMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editMenuActionPerformed(evt);
+            }
+        });
+        popupMenu.add(editMenu);
+        editMenu.getAccessibleContext().setAccessibleName("edit");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +144,16 @@ public class Window extends javax.swing.JFrame {
         model.removeAllElements();
     }//GEN-LAST:event_removeAllMenuActionPerformed
 
+    private void editMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuActionPerformed
+        if(people.getSelectedIndex() > -1){
+            Human person = (Human)model.get(people.getSelectedIndex());
+            PersonDialog dialog = new PersonDialog(this,true,person);
+            if(dialog.showDialog().equalsIgnoreCase("OK")){
+                model.setElementAt(dialog.getPerson(),people.getSelectedIndex());
+            }
+        }
+    }//GEN-LAST:event_editMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,6 +191,7 @@ public class Window extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JMenuItem editMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTextField;
