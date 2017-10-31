@@ -1,0 +1,4 @@
+class;name;age;height;weight;sex
+Human;ahoj;20;1.8;70;MAN
+Sportsman;lol;20;1.8;70;MAN
+Human;lolll;20;1.8;70;MAN

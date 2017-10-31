@@ -5,6 +5,10 @@
  */
 package people;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javax.swing.DefaultListModel;
 
 /**
@@ -34,6 +38,8 @@ public class Window extends javax.swing.JFrame {
         removeMenu = new javax.swing.JMenuItem();
         removeAllMenu = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenuItem();
+        openFileMenu = new javax.swing.JMenuItem();
+        saveFileMenu = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         people = new javax.swing.JList<>();
         nameTextField = new javax.swing.JTextField();
@@ -41,7 +47,7 @@ public class Window extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         selectPerson = new javax.swing.JComboBox<>();
 
-        removeMenu.setText("remove");
+        removeMenu.setText("Smazat");
         removeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeMenuActionPerformed(evt);
@@ -49,7 +55,7 @@ public class Window extends javax.swing.JFrame {
         });
         popupMenu.add(removeMenu);
 
-        removeAllMenu.setText("removeAll");
+        removeAllMenu.setText("Smazat vše");
         removeAllMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeAllMenuActionPerformed(evt);
@@ -57,15 +63,30 @@ public class Window extends javax.swing.JFrame {
         });
         popupMenu.add(removeAllMenu);
 
+        editMenu.setText("Upravit");
         editMenu.setActionCommand("edit");
-        editMenu.setLabel("edit");
         editMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editMenuActionPerformed(evt);
             }
         });
         popupMenu.add(editMenu);
-        editMenu.getAccessibleContext().setAccessibleName("edit");
+
+        openFileMenu.setText("Otevrit ze souboru");
+        openFileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openFileMenuActionPerformed(evt);
+            }
+        });
+        popupMenu.add(openFileMenu);
+
+        saveFileMenu.setText("Ulozit do souboru");
+        saveFileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFileMenuActionPerformed(evt);
+            }
+        });
+        popupMenu.add(saveFileMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,6 +175,59 @@ public class Window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editMenuActionPerformed
 
+    private void openFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileMenuActionPerformed
+        try (BufferedReader br = new BufferedReader(new FileReader("soubor.txt")))
+        {
+                String s;
+                int i = 0;
+                while ((s = br.readLine()) != null)
+                {
+                        if(i>0)
+                        {
+                            String[] attr = s.split(";");
+                            Human person = new Human(attr[1]);
+                            person.setAge(Integer.parseInt(attr[2]));
+                            person.setHeight(Float.parseFloat(attr[3]));
+                            person.setWeight(Integer.parseInt(attr[4]));
+                            if(attr[5] == "MAN")
+                                person.setSex(Human.Sex.MAN);
+                            else
+                                person.setSex(Human.Sex.WOMAN);
+                            model.addElement(person);
+                        }
+                        i++;
+                }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Chyba při četení ze souboru.");
+        }
+    }//GEN-LAST:event_openFileMenuActionPerformed
+
+    private void saveFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileMenuActionPerformed
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("soubor.txt")))
+        {
+                bw.write("class;name;age;height;weight;sex");
+                bw.newLine();
+                for(int i=0; i<model.getSize();i++)
+                {
+                    Human person = (Human)model.get(i);
+                    String output = person.getClass().getSimpleName() + ";"
+                            + person.getName() + ";"
+                            + person.getAge() + ";"
+                            + person.getHeight() + ";"
+                            + person.getWeight() + ";"
+                            + person.getSex();  
+                    bw.write(output);
+                    bw.newLine();
+                }
+                bw.flush();
+        }catch (Exception e)
+        {
+                System.err.println("Do souboru se nepovedlo zapsat.");
+        }
+    }//GEN-LAST:event_saveFileMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,10 +269,12 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JMenuItem openFileMenu;
     private javax.swing.JList<String> people;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JMenuItem removeAllMenu;
     private javax.swing.JMenuItem removeMenu;
+    private javax.swing.JMenuItem saveFileMenu;
     private javax.swing.JComboBox<String> selectPerson;
     // End of variables declaration//GEN-END:variables
 }

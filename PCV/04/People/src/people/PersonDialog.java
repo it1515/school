@@ -22,13 +22,14 @@ private String actionButton = "Storno";
         name.setText(person.getName());
         age.setValue(person.getAge());
         weight.setValue(person.getWeight());
-        //weight.setText(person.getWeight().toString());
+        height.setValue((int)(person.getHeight()*100));
     }
     
     public Human getPerson(){
         this.person.setName(name.getText());
         this.person.setAge((int)age.getValue());
         this.person.setWeight((int)weight.getValue());
+        this.person.setHeight((float)height.getValue()/100);
         return this.person;
     }
     
@@ -56,6 +57,9 @@ private String actionButton = "Storno";
         jLabel3 = new javax.swing.JLabel();
         weight = new javax.swing.JSlider();
         weightText = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        height = new javax.swing.JSlider();
+        heightText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -91,33 +95,72 @@ private String actionButton = "Storno";
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, weight, org.jdesktop.beansbinding.ELProperty.create("0"), weight, org.jdesktop.beansbinding.BeanProperty.create("minimum"));
         bindingGroup.addBinding(binding);
 
-        weightText.setText("jTextField1");
+        weight.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                weightStateChanged(evt);
+            }
+        });
+
+        weightText.setText("0");
+        weightText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                weightTextActionPerformed(evt);
+            }
+        });
+        weightText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                weightTextKeyReleased(evt);
+            }
+        });
+
+        jLabel4.setText("Výška");
+
+        height.setMaximum(220);
+        height.setMinimum(50);
+        height.setToolTipText("");
+        height.setValue(180);
+        height.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                heightStateChanged(evt);
+            }
+        });
+
+        heightText.setText("180");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(OkButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CancelButton)
-                .addGap(67, 67, 67))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(weightText, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(age))
-                        .addGap(18, 18, 18)
-                        .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addComponent(OkButton)
+                                .addGap(76, 76, 76)
+                                .addComponent(CancelButton)
+                                .addGap(24, 24, 24))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(heightText, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(height, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 9, 9))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(weightText, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(age))
+                            .addGap(18, 18, 18)
+                            .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -137,11 +180,17 @@ private String actionButton = "Storno";
                         .addComponent(jLabel3)
                         .addComponent(weightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(heightText))
+                    .addComponent(height, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkButton)
                     .addComponent(CancelButton))
-                .addGap(107, 107, 107))
+                .addGap(73, 73, 73))
         );
 
         bindingGroup.bind();
@@ -163,14 +212,38 @@ private String actionButton = "Storno";
         // TODO add your handling code here:
     }//GEN-LAST:event_ageStateChanged
 
+    private void weightTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightTextActionPerformed
+
+    }//GEN-LAST:event_weightTextActionPerformed
+
+    private void weightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_weightStateChanged
+        weightText.setText(String.valueOf(weight.getValue()));
+    }//GEN-LAST:event_weightStateChanged
+
+    private void weightTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weightTextKeyReleased
+        String typed = weightText.getText();
+                weight.setValue(0);
+                if(!typed.matches("\\d+") && !typed.matches("-\\d+") || typed.length() > 3) {
+                    return;
+                }
+                weight.setValue(Integer.parseInt(typed));
+    }//GEN-LAST:event_weightTextKeyReleased
+
+    private void heightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_heightStateChanged
+        heightText.setText(String.valueOf(height.getValue()));
+    }//GEN-LAST:event_heightStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JButton OkButton;
     private javax.swing.JSpinner age;
+    private javax.swing.JSlider height;
+    private javax.swing.JLabel heightText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField name;
     private javax.swing.JSlider weight;
     private javax.swing.JTextField weightText;

@@ -10,7 +10,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="removeMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="remove"/>
+            <Property name="text" type="java.lang.String" value="Smazat"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeMenuActionPerformed"/>
@@ -18,7 +18,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="removeAllMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="removeAll"/>
+            <Property name="text" type="java.lang.String" value="Smazat v&#x161;e"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeAllMenuActionPerformed"/>
@@ -26,14 +26,27 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="editMenu">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Upravit"/>
             <Property name="actionCommand" type="java.lang.String" value="edit"/>
-            <Property name="label" type="java.lang.String" value="edit"/>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="edit"/>
-          </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editMenuActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="openFileMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Otevrit ze souboru"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openFileMenuActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="saveFileMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ulozit do souboru"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveFileMenuActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
