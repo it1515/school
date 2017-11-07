@@ -5,6 +5,8 @@
  */
 package people;
 
+import people.Human.Sex;
+
 /**
  *
  * @author student
@@ -23,6 +25,12 @@ private String actionButton = "Storno";
         age.setValue(person.getAge());
         weight.setValue(person.getWeight());
         height.setValue((int)(person.getHeight()*100));
+        if(person.getSex() == Sex.MAN){
+            manButton.setSelected(true);
+        }
+        else{
+            womanButton.setSelected(true);
+        }
     }
     
     public Human getPerson(){
@@ -48,6 +56,7 @@ private String actionButton = "Storno";
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        sexButtonGroup = new javax.swing.ButtonGroup();
         name = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         OkButton = new javax.swing.JButton();
@@ -60,6 +69,8 @@ private String actionButton = "Storno";
         jLabel4 = new javax.swing.JLabel();
         height = new javax.swing.JSlider();
         heightText = new javax.swing.JLabel();
+        manButton = new javax.swing.JRadioButton();
+        womanButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -127,6 +138,18 @@ private String actionButton = "Storno";
 
         heightText.setText("180");
 
+        sexButtonGroup.add(manButton);
+        manButton.setSelected(true);
+        manButton.setText("muž");
+
+        sexButtonGroup.add(womanButton);
+        womanButton.setText("žena");
+        womanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                womanButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,15 +166,21 @@ private String actionButton = "Storno";
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                .addComponent(OkButton)
-                                .addGap(76, 76, 76)
-                                .addComponent(CancelButton)
-                                .addGap(24, 24, 24))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(heightText, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(height, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(height, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(manButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(womanButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(OkButton)
+                                        .addGap(76, 76, 76)
+                                        .addComponent(CancelButton)))
+                                .addGap(24, 24, 24)))
                         .addGap(9, 9, 9))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,7 +215,11 @@ private String actionButton = "Storno";
                         .addComponent(jLabel4)
                         .addComponent(heightText))
                     .addComponent(height, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(manButton)
+                    .addComponent(womanButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OkButton)
                     .addComponent(CancelButton))
@@ -233,6 +266,10 @@ private String actionButton = "Storno";
         heightText.setText(String.valueOf(height.getValue()));
     }//GEN-LAST:event_heightStateChanged
 
+    private void womanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_womanButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_womanButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
@@ -244,9 +281,12 @@ private String actionButton = "Storno";
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton manButton;
     private javax.swing.JTextField name;
+    private javax.swing.ButtonGroup sexButtonGroup;
     private javax.swing.JSlider weight;
     private javax.swing.JTextField weightText;
+    private javax.swing.JRadioButton womanButton;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
