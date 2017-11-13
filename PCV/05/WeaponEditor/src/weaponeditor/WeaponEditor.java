@@ -15,8 +15,10 @@ public class WeaponEditor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Weapon zbran = new Weapon("Raketomet");
-        System.out.println(zbran.toString());
+        MeleeWeapon Mec = new MeleeWeapon("Mec",2000,MeleeWeapon.Type.Sword);
+        RangeWeapon Raketomet = new RangeWeapon("Raketomet",800,RangeWeapon.Type.RocketLauncher);
+        System.out.println(Mec.toString());
+        System.out.println(Raketomet.toString());
     }
     
 }

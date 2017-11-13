@@ -10,15 +10,16 @@ package weaponeditor;
  * @author student
  */
 public class Weapon {
+
     public enum Rarity {
-        COMMON, UNCOMMON, RARE, EPIC, LEGENDARY
+        Common, Uncommon, Rare, Epic, Legendary
     }
     private String name;
     private int dmg = 50;
     private int attackspeed = 2;
     private int range = 50;
     private int durability = 100;
-    private Rarity rarity = Rarity.COMMON;
+    private Rarity rarity = Rarity.Common;
 
     public Weapon(String name, int dmg, int attackspeed, int range, int durability, Rarity rarity){
         this.setName(name);
@@ -27,6 +28,11 @@ public class Weapon {
         this.setRange(range);
         this.setDurability(durability);
         this.setRarity(rarity);
+    }
+    
+    public Weapon(String name, int dmg){
+        this.setName(name);
+        this.setDmg(dmg);
     }
     
     public Weapon(String name){
@@ -83,11 +89,12 @@ public class Weapon {
     }
     @Override
     public String toString(){
-        String output = this.name + " [Weapon]\n";
-        output += "DMG: "+this.dmg+"\n";
-        output += "Attackspeed: "+this.attackspeed+"\n";
-        output += "Range: "+this.range+" m\n";
-        output += "Durability: "+this.durability+" %\n";
+        String output = this.name + " ["+this.rarity+"]";
+//        output += "DMG: "+this.dmg+"\n";
+//        output += "Attackspeed: "+this.attackspeed+"\n";
+//        output += "Range: "+this.range+" m\n";
+//        output += "Durability: "+this.durability+" %\n";
+//        output += "Rarity: "+this.rarity+"\n";
         return output;
     }
     

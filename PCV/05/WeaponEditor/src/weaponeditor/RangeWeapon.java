@@ -11,13 +11,13 @@ package weaponeditor;
  */
 public class RangeWeapon extends Weapon{
     public enum Type {
-        BOW, CROSSBOW, PISTOL, SMG, ASSULT, SNIPER
+        Bow, Crossbow, Pistol, Smg, Assult, Sniper, RocketLauncher
     }
     private int accuracy = 50;
     private int stability = 50;
     private int ammoCapacity = 90;
     private int magazineCapacity = 30;
-    private Type type = Type.BOW;
+    private Type type = Type.Bow;
     
     public RangeWeapon(String name, int dmg, int attackspeed, int range, int durability, Rarity rarity, int accuracy,
             int stability, int ammoCapacity, int magazineCapacity, Type type){
@@ -27,6 +27,20 @@ public class RangeWeapon extends Weapon{
         this.setAmmoCapacity(ammoCapacity);
         this.setMagazineCapacity(magazineCapacity);
         this.setType(type);
+    }
+    
+    public RangeWeapon(String name, int dmg, Type type){
+        super(name, dmg);
+        this.setType(type);
+    }
+    
+    public RangeWeapon(String name, Type type){
+        super(name);
+        this.setType(type);
+    }
+    
+    public RangeWeapon(String name){
+        super(name);
     }
 
     public int getAccuracy() {
@@ -68,4 +82,7 @@ public class RangeWeapon extends Weapon{
     public void setType(Type type) {
         this.type = type;
     }    
+    public String toString(){
+        return super.toString() + "["+this.type+"]\n";
+    }
 }

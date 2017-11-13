@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -105,6 +105,11 @@ public class Window extends javax.swing.JFrame {
         jLabel1.setText("Jméno osoby");
 
         selectPerson.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Clovek", "Sportovec", " " }));
+        selectPerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectPersonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,6 +232,10 @@ public class Window extends javax.swing.JFrame {
                 System.err.println("Do souboru se nepovedlo zapsat.");
         }
     }//GEN-LAST:event_saveFileMenuActionPerformed
+
+    private void selectPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPersonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectPersonActionPerformed
 
     /**
      * @param args the command line arguments
