@@ -1,0 +1,9 @@
+class;type;name;dmg;rarity
+MeleeWeapon;Axe;;50;Common
+RangeWeapon;Bow;;50;Common
+MeleeWeapon;Hammer;;50;Common
+RangeWeapon;Assult;;50;Common
+RangeWeapon;Assult;;50;Common
+MeleeWeapon;Dagger;;50;Common
+MeleeWeapon;Dagger;wwwww;50;Common
+MeleeWeapon;Blade;awggg;50;Common

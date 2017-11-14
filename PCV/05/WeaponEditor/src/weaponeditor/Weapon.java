@@ -11,6 +11,14 @@ package weaponeditor;
  */
 public class Weapon {
 
+    void setType(MeleeWeapon.Type type) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void setType(RangeWeapon.Type type) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public enum Rarity {
         Common, Uncommon, Rare, Epic, Legendary
     }
