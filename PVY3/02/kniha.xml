@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.3.11
+- http://www.phpmyadmin.net
+-
+- Počítač: 127.0.0.1
+- Vytvořeno: Pon 16. říj 2017, 08:31
+- Verze serveru: 5.6.24
+- Verze PHP: 5.6.8
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="it3prog" collation="utf8mb4_czech_ci" charset="utf8mb4">
+            <pma:table name="kniha">
+                CREATE TABLE `kniha` (
+                  `Kodknihy` int(6) unsigned NOT NULL AUTO_INCREMENT,
+                  `Titul` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+                  `Popis` text COLLATE utf8_czech_ci,
+                  `RokVydani` year(4) DEFAULT NULL,
+                  `Cena` decimal(6,2) DEFAULT NULL,
+                  `Typ` enum('poezie','próza','drama') CHARACTER SET utf8 DEFAULT NULL,
+                  PRIMARY KEY (`Kodknihy`),
+                  KEY `titul` (`Titul`),
+                  KEY `rok` (`RokVydani`),
+                  KEY `cena` (`Cena`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Databáze: 'it3prog'
+    -->
+    <database name="it3prog">
+        <!-- Tabulka kniha -->
+        <table name="kniha">
+            <column name="Kodknihy">1</column>
+            <column name="Titul">Šibeničník</column>
+            <column name="Popis">Výbor z poezie francouzského básníka Francoise Villona</column>
+            <column name="RokVydani">1987</column>
+            <column name="Cena">25.00</column>
+            <column name="Typ">poezie</column>
+        </table>
+        <table name="kniha">
+            <column name="Kodknihy">3</column>
+            <column name="Titul">Má bohéma</column>
+            <column name="Popis">Poezie Arthura Rimbauda</column>
+            <column name="RokVydani">1977</column>
+            <column name="Cena">35.00</column>
+            <column name="Typ">poezie</column>
+        </table>
+        <table name="kniha">
+            <column name="Kodknihy">4</column>
+            <column name="Titul">Hvězdný déšť</column>
+            <column name="Popis">Výbor z poezie</column>
+            <column name="RokVydani">1989</column>
+            <column name="Cena">28.00</column>
+            <column name="Typ">poezie</column>
+        </table>
+        <table name="kniha">
+            <column name="Kodknihy">5</column>
+            <column name="Titul">Doktor Živago</column>
+            <column name="Popis">Román z ruského prostředí v letech 1902 až 1940</column>
+            <column name="RokVydani">1990</column>
+            <column name="Cena">48.00</column>
+            <column name="Typ">próza</column>
+        </table>
+        <table name="kniha">
+            <column name="Kodknihy">28</column>
+            <column name="Titul">Indiánské léto</column>
+            <column name="Popis">Reportážní črty které místy přecházejí v báseň nebo v povídku. Aškenazy úřijel do New Yorku jako zpravodaj na zasedání OSN a využil volného času k poznání života Ameriky - dotýká se problémů USA, ale i moderního života vůbec. Jsou zde i prosté lyrické scény - pozorování elektrické krásy s okna hotelu apod. Nad vším je jemný opar smutku.</column>
+            <column name="RokVydani">1956</column>
+            <column name="Cena">22.00</column>
+            <column name="Typ">próza</column>
+        </table>
+        <table name="kniha">
+            <column name="Kodknihy">41</column>
+            <column name="Titul">Žhář</column>
+            <column name="Popis">Hrdinou románu je patnáctiletý syn hostinského Kamil v malém městečku u pruských hranic - prožívá pubertální krizi; připadá si osamocený, nepochopený, touží po sebeuplatnění. V rodině jeho otce Simona však vládne podivný citový chlad - jeho mnohem mladší žena je nešťastná, nepřilne ani ke svým dětem - k sedmnáctileté Elišce. Matka žije jako cizinka ve své rodině a nakonec si vytvoří se zděděného nábytku po rodičích svůj dřívější svět. K Elišce přijde na návštěvu Dora - citově a mravně narušené děvče z internátu, které si  začne s Kamilem eroticky zahrávat a zároveň ho pokořuje - žádá, aby pro ni něco velkého udělal. Kamil, který trpí svou ošklivostí, chce dokázat Doře i sám sobě svou hodnotu, a pro to po náhodném požáru v městečku napíše dva paličské listy. Po obou skutečně následují požáry - zakládají je však 3 kumpáni, kteří zneužili psychózy a vyřizují si své účty. Kamil se matce přiznává a ta pochopí, že děti potřebují lásku a přibližuje se k nim ze své cizoty.</column>
+            <column name="RokVydani">1937</column>
+            <column name="Cena">20.00</column>
+            <column name="Typ">próza</column>
+        </table>
+    </database>
+</pma_xml_export>
