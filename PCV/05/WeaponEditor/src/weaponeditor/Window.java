@@ -9,14 +9,17 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import java.util.*;
 
 /**
  *
  * @author nesty
  */
 public class Window extends javax.swing.JFrame {
+
 
     DefaultListModel model = new DefaultListModel();
 
@@ -52,6 +55,7 @@ public class Window extends javax.swing.JFrame {
         Weapons = new javax.swing.JList<>();
         selectWeapon = new javax.swing.JComboBox<>();
         addButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         removeMenu.setText("remove");
         removeMenu.setComponentPopupMenu(popupMenu);
@@ -150,30 +154,37 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Název zbraně");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(name))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(MeleeWeaponButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectWeapon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(name))
                         .addGap(18, 18, 18)
-                        .addComponent(RangeWeaponButton))
-                    .addComponent(addButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(MeleeWeaponButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(selectWeapon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(RangeWeaponButton))
+                            .addComponent(addButton))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MeleeWeaponButton)
@@ -206,15 +217,16 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_MeleeWeaponButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        Weapon.Rarity rarity = Weapon.Rarity.getRandomRarity();
         if (MeleeWeaponButton.isSelected() == true) {
-            Weapon weapon = new MeleeWeapon(name.getText(), (MeleeWeapon.Type) selectWeapon.getSelectedItem());
+            Weapon weapon = new MeleeWeapon(name.getText(), (MeleeWeapon.Type) selectWeapon.getSelectedItem(), rarity);
             model.addElement(weapon);
         } else {
-            Weapon weapon = new RangeWeapon(name.getText(), (RangeWeapon.Type) selectWeapon.getSelectedItem());
+            Weapon weapon = new RangeWeapon(name.getText(), (RangeWeapon.Type) selectWeapon.getSelectedItem(), rarity);
             model.addElement(weapon);
         }
     }//GEN-LAST:event_addButtonActionPerformed
-
+    
     private void removeAllMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAllMenuActionPerformed
         model.removeAllElements();
     }//GEN-LAST:event_removeAllMenuActionPerformed
@@ -240,11 +252,21 @@ public class Window extends javax.swing.JFrame {
 
     private void editMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuActionPerformed
         if(Weapons.getSelectedIndex() > -1){
-            Weapon weapon = (Weapon)model.get(Weapons.getSelectedIndex());
-//            WeaponDialog dialog = new WeaponDialog(this,true,weapon);
-//            if(dialog.showDialog().equalsIgnoreCase("OK")){
-//                model.setElementAt(dialog.getPerson(),Weapons.getSelectedIndex());
-//            }
+            int i = Weapons.getSelectedIndex();
+            if(model.get(i).getClass().getSimpleName().equals("MeleeWeapon")){
+                MeleeWeapon weapon = (MeleeWeapon)model.get(Weapons.getSelectedIndex());
+                WeaponDialog dialog = new WeaponDialog(this,true,weapon);
+                if(dialog.showDialog("Melee Weapon").equalsIgnoreCase("OK")){
+                    model.setElementAt(dialog.getMeleeWeapon(),Weapons.getSelectedIndex());
+                }
+            }
+            if(model.get(i).getClass().getSimpleName().equals("RangeWeapon")){
+                RangeWeapon weapon = (RangeWeapon)model.get(Weapons.getSelectedIndex());
+                WeaponDialog dialog = new WeaponDialog(this,true,weapon);
+                if(dialog.showDialog("Range Weapon").equalsIgnoreCase("OK")){
+                    model.setElementAt(dialog.getRangeWeapon(),Weapons.getSelectedIndex());
+                }
+            }
         }
     }//GEN-LAST:event_editMenuActionPerformed
 
@@ -401,6 +423,7 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.ButtonGroup buttonGroupWeapons;
     private javax.swing.JMenuItem editMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField name;
     private javax.swing.JMenuItem openFileMenu;

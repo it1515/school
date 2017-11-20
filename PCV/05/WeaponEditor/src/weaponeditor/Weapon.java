@@ -5,6 +5,8 @@
  */
 package weaponeditor;
 
+import java.util.Random;
+
 /**
  *
  * @author student
@@ -20,7 +22,12 @@ public class Weapon {
     }
 
     public enum Rarity {
-        Common, Uncommon, Rare, Epic, Legendary
+        Common, Uncommon, Rare, Epic, Legendary;
+
+        static Rarity getRandomRarity(){
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
     }
     private String name;
     private int dmg = 50;
@@ -43,9 +50,16 @@ public class Weapon {
         this.setDmg(dmg);
     }
     
+    public Weapon(String name , Rarity rarity){
+        this.name = name;
+        this.setRarity(rarity);
+    }
+    
     public Weapon(String name){
         this.name = name;
     }
+    
+   
     
     public String getName() {
         return name;

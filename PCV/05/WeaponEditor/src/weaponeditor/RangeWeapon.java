@@ -34,6 +34,11 @@ public class RangeWeapon extends Weapon{
         this.setType(type);
     }
     
+    public RangeWeapon(String name, Type type, Rarity rarity){
+        super(name, rarity);
+        this.setType(type);
+    }
+    
     public RangeWeapon(String name, Type type){
         super(name);
         this.setType(type);

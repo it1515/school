@@ -27,6 +27,11 @@ public class MeleeWeapon extends Weapon{
         this.setType(type);
     }
     
+    public MeleeWeapon(String name, Type type, Rarity rarity){
+        super(name, rarity);
+        this.setType(type);
+    }
+    
     public MeleeWeapon(String name, Type type){
         super(name);
         this.setType(type);
