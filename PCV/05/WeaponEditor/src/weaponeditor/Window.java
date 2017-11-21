@@ -9,10 +9,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Random;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import java.util.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -271,113 +274,203 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_editMenuActionPerformed
 
     private void openFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileMenuActionPerformed
-        try (BufferedReader br = new BufferedReader(new FileReader("soubor.txt")))
-        {
-                String s;
-                int i = 0;
-                while ((s = br.readLine()) != null)
-                {
-                        if(i>0)
-                        {
-                            String[] attr = s.split(";");
-                            Weapon weapon;
-                            if (attr[0].equalsIgnoreCase("MeleeWeapon")) {
-                                weapon = new MeleeWeapon(attr[2]);
-                                if(attr[1].equalsIgnoreCase("Sword"))
-                                    weapon.setType(MeleeWeapon.Type.Sword);
-                                else if(attr[1].equalsIgnoreCase("Axe"))
-                                    weapon.setType(MeleeWeapon.Type.Axe);
-                                else if(attr[1].equalsIgnoreCase("Blade"))
-                                    weapon.setType(MeleeWeapon.Type.Blade);
-                                else if(attr[1].equalsIgnoreCase("Mace"))
-                                    weapon.setType(MeleeWeapon.Type.Mace);
-                                else if(attr[1].equalsIgnoreCase("Hammer"))
-                                    weapon.setType(MeleeWeapon.Type.Hammer);
-                                else if(attr[1].equalsIgnoreCase("Spear"))
-                                    weapon.setType(MeleeWeapon.Type.Spear);
-                                else if(attr[1].equalsIgnoreCase("Dagger"))
-                                    weapon.setType(MeleeWeapon.Type.Dagger);
-                            } else {
-                                weapon = new RangeWeapon(attr[2]);
-                                if(attr[1].equalsIgnoreCase("Bow"))
-                                    weapon.setType(RangeWeapon.Type.Bow);
-                                else if(attr[1].equalsIgnoreCase("Crossbow"))
-                                    weapon.setType(RangeWeapon.Type.Crossbow);
-                                else if(attr[1].equalsIgnoreCase("Pistol"))
-                                    weapon.setType(RangeWeapon.Type.Pistol);
-                                else if(attr[1].equalsIgnoreCase("Smg"))
-                                    weapon.setType(RangeWeapon.Type.Smg);
-                                else if(attr[1].equalsIgnoreCase("Assult"))
-                                    weapon.setType(RangeWeapon.Type.Assult);
-                                else if(attr[1].equalsIgnoreCase("Sniper"))
-                                    weapon.setType(RangeWeapon.Type.Sniper);
-                                else if(attr[1].equalsIgnoreCase("RocketLauncher"))
-                                    weapon.setType(RangeWeapon.Type.RocketLauncher);
-                            }
-                            
-                                    
-                            weapon.setDmg(Integer.parseInt(attr[3]));
-                            if(attr[4].equalsIgnoreCase("Common"))
-                                weapon.setRarity(Weapon.Rarity.Common);
-                            else if(attr[4].equalsIgnoreCase("Uncommon"))
-                                weapon.setRarity(Weapon.Rarity.Uncommon);
-                            else if(attr[4].equalsIgnoreCase("Rare"))
-                                weapon.setRarity(Weapon.Rarity.Rare);
-                            else if(attr[4].equalsIgnoreCase("Epic"))
-                                weapon.setRarity(Weapon.Rarity.Epic);
-                            else if(attr[4].equalsIgnoreCase("Legendary"))
-                                weapon.setRarity(Weapon.Rarity.Legendary);
-                            model.addElement(weapon);
-                        }
-                        i++;
-                }
+//        try (BufferedReader br = new BufferedReader(new FileReader("soubor.txt")))
+//        {
+//                String s;
+//                int i = 0;
+//                while ((s = br.readLine()) != null)
+//                {
+//                        if(i>0)
+//                        {
+//                            String[] attr = s.split(";");
+//                            Weapon weapon;
+//                            if (attr[0].equalsIgnoreCase("MeleeWeapon")) {
+//                                weapon = new MeleeWeapon(attr[2]);
+//                                if(attr[1].equalsIgnoreCase("Sword"))
+//                                    weapon.setType(MeleeWeapon.Type.Sword);
+//                                else if(attr[1].equalsIgnoreCase("Axe"))
+//                                    weapon.setType(MeleeWeapon.Type.Axe);
+//                                else if(attr[1].equalsIgnoreCase("Blade"))
+//                                    weapon.setType(MeleeWeapon.Type.Blade);
+//                                else if(attr[1].equalsIgnoreCase("Mace"))
+//                                    weapon.setType(MeleeWeapon.Type.Mace);
+//                                else if(attr[1].equalsIgnoreCase("Hammer"))
+//                                    weapon.setType(MeleeWeapon.Type.Hammer);
+//                                else if(attr[1].equalsIgnoreCase("Spear"))
+//                                    weapon.setType(MeleeWeapon.Type.Spear);
+//                                else if(attr[1].equalsIgnoreCase("Dagger"))
+//                                    weapon.setType(MeleeWeapon.Type.Dagger);
+//                            } else {
+//                                weapon = new RangeWeapon(attr[2]);
+//                                if(attr[1].equalsIgnoreCase("Bow"))
+//                                    weapon.setType(RangeWeapon.Type.Bow);
+//                                else if(attr[1].equalsIgnoreCase("Crossbow"))
+//                                    weapon.setType(RangeWeapon.Type.Crossbow);
+//                                else if(attr[1].equalsIgnoreCase("Pistol"))
+//                                    weapon.setType(RangeWeapon.Type.Pistol);
+//                                else if(attr[1].equalsIgnoreCase("Smg"))
+//                                    weapon.setType(RangeWeapon.Type.Smg);
+//                                else if(attr[1].equalsIgnoreCase("Assult"))
+//                                    weapon.setType(RangeWeapon.Type.Assult);
+//                                else if(attr[1].equalsIgnoreCase("Sniper"))
+//                                    weapon.setType(RangeWeapon.Type.Sniper);
+//                                else if(attr[1].equalsIgnoreCase("RocketLauncher"))
+//                                    weapon.setType(RangeWeapon.Type.RocketLauncher);
+//                            }
+//                            
+//                                    
+//                            weapon.setDmg(Integer.parseInt(attr[3]));
+//                            if(attr[4].equalsIgnoreCase("Common"))
+//                                weapon.setRarity(Weapon.Rarity.Common);
+//                            else if(attr[4].equalsIgnoreCase("Uncommon"))
+//                                weapon.setRarity(Weapon.Rarity.Uncommon);
+//                            else if(attr[4].equalsIgnoreCase("Rare"))
+//                                weapon.setRarity(Weapon.Rarity.Rare);
+//                            else if(attr[4].equalsIgnoreCase("Epic"))
+//                                weapon.setRarity(Weapon.Rarity.Epic);
+//                            else if(attr[4].equalsIgnoreCase("Legendary"))
+//                                weapon.setRarity(Weapon.Rarity.Legendary);
+//                            model.addElement(weapon);
+//                        }
+//                        i++;
+//                }
+//        }
+//        catch (Exception e)
+//        {
+//            System.err.println("Chyba při četení ze souboru.");
+//        }
+        JSONParser parser = new JSONParser();
+        try (BufferedReader br = new BufferedReader(new FileReader("myJSON.json"))){
+            Object obj = parser.parse(new FileReader("myJSON.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            
+            String clazz = (String) jsonObject.get("clazz");
+            String name = (String) jsonObject.get("name");
+            String type = (String) jsonObject.get("type");
+            int dmg = Integer.parseInt(jsonObject.get("dmg").toString());
+            String rarity = (String) jsonObject.get("rarity");
+            Weapon weapon;
+            if(clazz.equalsIgnoreCase("MeleeWeapon")){
+                weapon = new MeleeWeapon(name);
+                if(type.equalsIgnoreCase("Sword"))
+                    weapon.setType(MeleeWeapon.Type.Sword);
+                else if(type.equalsIgnoreCase("Axe"))
+                    weapon.setType(MeleeWeapon.Type.Axe);
+                else if(type.equalsIgnoreCase("Blade"))
+                    weapon.setType(MeleeWeapon.Type.Blade);
+                else if(type.equalsIgnoreCase("Mace"))
+                    weapon.setType(MeleeWeapon.Type.Mace);
+                else if(type.equalsIgnoreCase("Hammer"))
+                    weapon.setType(MeleeWeapon.Type.Hammer);
+                else if(type.equalsIgnoreCase("Spear"))
+                    weapon.setType(MeleeWeapon.Type.Spear);
+                else if(type.equalsIgnoreCase("Dagger"))
+                    weapon.setType(MeleeWeapon.Type.Dagger);
+            } else {
+                weapon = new RangeWeapon(name);
+                if(type.equalsIgnoreCase("Bow"))
+                    weapon.setType(RangeWeapon.Type.Bow);
+                else if(type.equalsIgnoreCase("Crossbow"))
+                    weapon.setType(RangeWeapon.Type.Crossbow);
+                else if(type.equalsIgnoreCase("Pistol"))
+                    weapon.setType(RangeWeapon.Type.Pistol);
+                else if(type.equalsIgnoreCase("Smg"))
+                    weapon.setType(RangeWeapon.Type.Smg);
+                else if(type.equalsIgnoreCase("Assult"))
+                    weapon.setType(RangeWeapon.Type.Assult);
+                else if(type.equalsIgnoreCase("Sniper"))
+                    weapon.setType(RangeWeapon.Type.Sniper);
+                else if(type.equalsIgnoreCase("RocketLauncher"))
+                    weapon.setType(RangeWeapon.Type.RocketLauncher);
+            }
+            weapon.setDmg(dmg);
+            if(rarity.equalsIgnoreCase("Common"))
+                weapon.setRarity(Weapon.Rarity.Common);
+            else if(rarity.equalsIgnoreCase("Uncommon"))
+                weapon.setRarity(Weapon.Rarity.Uncommon);
+            else if(rarity.equalsIgnoreCase("Rare"))
+                weapon.setRarity(Weapon.Rarity.Rare);
+            else if(rarity.equalsIgnoreCase("Epic"))
+                weapon.setRarity(Weapon.Rarity.Epic);
+            else if(rarity.equalsIgnoreCase("Legendary"))
+                weapon.setRarity(Weapon.Rarity.Legendary);
+            model.addElement(weapon);
         }
-        catch (Exception e)
+        catch(Exception e) 
         {
             System.err.println("Chyba při četení ze souboru.");
         }
     }//GEN-LAST:event_openFileMenuActionPerformed
 
     private void saveFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileMenuActionPerformed
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("soubor.txt")))
-        {
-                bw.write("class;type;name;dmg;rarity");
-                bw.newLine();
-                
-                for(int i=0; i<model.getSize();i++)
-                {                    
-                    if(model.get(i).getClass().getSimpleName().equals("MeleeWeapon")){
-                        MeleeWeapon weapon = (MeleeWeapon)model.get(i);
-                        String output = weapon.getClass().getSimpleName() + ";"
-                                + weapon.getType() + ";"
-                                + weapon.getName() + ";"
-                                + weapon.getDmg() + ";"
-                                + weapon.getRarity();
-                        bw.write(output);
-                    }else{
-                        RangeWeapon weapon2 = (RangeWeapon)model.get(i);
-                        String output2 = weapon2.getClass().getSimpleName() + ";"
-                                + weapon2.getType() + ";"
-                                + weapon2.getName() + ";"
-                                + weapon2.getDmg() + ";"
-                                + weapon2.getRarity();
-                        bw.write(output2);
-                    }
-                    bw.newLine();
-                    
-//                    RangeWeapon weapon2 = (RangeWeapon)model.get(i);
-//                    String output2 = weapon2.getClass().getSimpleName() + ";"
-//                            + weapon2.getType() + ";"
-//                            + weapon2.getName() + ";"
-//                            + weapon2.getDmg() + ";"
-//                            + weapon2.getRarity();
-//                    bw.write(output2);
+//        try (BufferedWriter bw = new BufferedWriter(new FileWriter("soubor.txt")))
+//        {
+//                bw.write("class;type;name;dmg;rarity");
+//                bw.newLine();
+//                
+//                for(int i=0; i<model.getSize();i++)
+//                {                    
+//                    if(model.get(i).getClass().getSimpleName().equals("MeleeWeapon")){
+//                        MeleeWeapon weapon = (MeleeWeapon)model.get(i);
+//                        String output = weapon.getClass().getSimpleName() + ";"
+//                                + weapon.getType() + ";"
+//                                + weapon.getName() + ";"
+//                                + weapon.getDmg() + ";"
+//                                + weapon.getRarity();
+//                        bw.write(output);
+//                    }else{
+//                        RangeWeapon weapon2 = (RangeWeapon)model.get(i);
+//                        String output2 = weapon2.getClass().getSimpleName() + ";"
+//                                + weapon2.getType() + ";"
+//                                + weapon2.getName() + ";"
+//                                + weapon2.getDmg() + ";"
+//                                + weapon2.getRarity();
+//                        bw.write(output2);
+//                    }
 //                    bw.newLine();
-                }
-                bw.flush();
-        }catch (Exception e)
+//                    
+////                    RangeWeapon weapon2 = (RangeWeapon)model.get(i);
+////                    String output2 = weapon2.getClass().getSimpleName() + ";"
+////                            + weapon2.getType() + ";"
+////                            + weapon2.getName() + ";"
+////                            + weapon2.getDmg() + ";"
+////                            + weapon2.getRarity();
+////                    bw.write(output2);
+////                    bw.newLine();
+//                }
+//                bw.flush();
+//        }catch (Exception e)
+//        {
+//                System.err.println("Do souboru se nepovedlo zapsat.");
+//        }
+        try(BufferedWriter file = new BufferedWriter(new FileWriter("myJSON.json")))
         {
-                System.err.println("Do souboru se nepovedlo zapsat.");
+            JSONObject obj = new JSONObject();
+            for(int i=0; i<model.getSize();i++)
+            {                    
+                if(model.get(i).getClass().getSimpleName().equals("MeleeWeapon")){
+                    MeleeWeapon weapon = (MeleeWeapon)model.get(i);
+                    obj.put("clazz",weapon.getClass().getSimpleName());
+                    obj.put("type",weapon.getType().toString());
+                    obj.put("name",weapon.getName());
+                    obj.put("dmg",(int) weapon.getDmg());
+                    obj.put("rarity",weapon.getRarity().toString());
+                }else{
+                    RangeWeapon weapon2 = (RangeWeapon)model.get(i);
+                    obj.put("clazz",weapon2.getClass().getSimpleName());
+                    obj.put("type",weapon2.getType().toString());
+                    obj.put("name",weapon2.getName());
+                    obj.put("dmg",(int) weapon2.getDmg());
+                    obj.put("rarity",weapon2.getRarity().toString());
+                }
+                file.write(obj.toString());
+                file.newLine();                
+                file.flush();
+            }
+        }   
+        catch (IOException e)
+        {
+            System.err.println("Do souboru se nepovedlo zapsat.");
         }
     }//GEN-LAST:event_saveFileMenuActionPerformed
 
