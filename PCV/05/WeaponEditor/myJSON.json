@@ -1,1 +1,1 @@
-{ "name": "", "type": "Sword", "clazz": "MeleeWeapon", "dmg": 50, "rarity": "Legendary" }
+{"attackspeed":1,"durability":71,"name":"","ammoCapacity":23,"range":78,"accuracy":23,"magazineCapacity":17,"type":"Smg","clazz":"RangeWeapon","stability":3,"dmg":49,"rarity":"Rare"}

@@ -348,52 +348,28 @@ public class Window extends javax.swing.JFrame {
             String name = (String) jsonObject.get("name");
             String type = (String) jsonObject.get("type");
             int dmg = Integer.parseInt(jsonObject.get("dmg").toString());
+            int attackspeed = Integer.parseInt(jsonObject.get("attackspeed").toString());
+            int range = Integer.parseInt(jsonObject.get("range").toString());
+            int durability = Integer.parseInt(jsonObject.get("durability").toString());   
             String rarity = (String) jsonObject.get("rarity");
             Weapon weapon;
             if(clazz.equalsIgnoreCase("MeleeWeapon")){
-                weapon = new MeleeWeapon(name);
-                if(type.equalsIgnoreCase("Sword"))
-                    weapon.setType(MeleeWeapon.Type.Sword);
-                else if(type.equalsIgnoreCase("Axe"))
-                    weapon.setType(MeleeWeapon.Type.Axe);
-                else if(type.equalsIgnoreCase("Blade"))
-                    weapon.setType(MeleeWeapon.Type.Blade);
-                else if(type.equalsIgnoreCase("Mace"))
-                    weapon.setType(MeleeWeapon.Type.Mace);
-                else if(type.equalsIgnoreCase("Hammer"))
-                    weapon.setType(MeleeWeapon.Type.Hammer);
-                else if(type.equalsIgnoreCase("Spear"))
-                    weapon.setType(MeleeWeapon.Type.Spear);
-                else if(type.equalsIgnoreCase("Dagger"))
-                    weapon.setType(MeleeWeapon.Type.Dagger);
+                int lenght = Integer.parseInt(jsonObject.get("lenght").toString());
+                weapon = new MeleeWeapon(name,lenght);      
+                weapon.setType(MeleeWeapon.Type.valueOf(type));
             } else {
-                weapon = new RangeWeapon(name);
-                if(type.equalsIgnoreCase("Bow"))
-                    weapon.setType(RangeWeapon.Type.Bow);
-                else if(type.equalsIgnoreCase("Crossbow"))
-                    weapon.setType(RangeWeapon.Type.Crossbow);
-                else if(type.equalsIgnoreCase("Pistol"))
-                    weapon.setType(RangeWeapon.Type.Pistol);
-                else if(type.equalsIgnoreCase("Smg"))
-                    weapon.setType(RangeWeapon.Type.Smg);
-                else if(type.equalsIgnoreCase("Assult"))
-                    weapon.setType(RangeWeapon.Type.Assult);
-                else if(type.equalsIgnoreCase("Sniper"))
-                    weapon.setType(RangeWeapon.Type.Sniper);
-                else if(type.equalsIgnoreCase("RocketLauncher"))
-                    weapon.setType(RangeWeapon.Type.RocketLauncher);
-            }
+                int accuracy = Integer.parseInt(jsonObject.get("accuracy").toString());
+                int stability = Integer.parseInt(jsonObject.get("stability").toString());
+                int ammoCapacity = Integer.parseInt(jsonObject.get("ammoCapacity").toString());
+                int magazineCapacity = Integer.parseInt(jsonObject.get("magazineCapacity").toString());
+                weapon = new RangeWeapon(name,accuracy,stability,ammoCapacity,magazineCapacity);
+                weapon.setType(RangeWeapon.Type.valueOf(type));
+            }      
+            weapon.setRarity(Weapon.Rarity.valueOf(rarity));
             weapon.setDmg(dmg);
-            if(rarity.equalsIgnoreCase("Common"))
-                weapon.setRarity(Weapon.Rarity.Common);
-            else if(rarity.equalsIgnoreCase("Uncommon"))
-                weapon.setRarity(Weapon.Rarity.Uncommon);
-            else if(rarity.equalsIgnoreCase("Rare"))
-                weapon.setRarity(Weapon.Rarity.Rare);
-            else if(rarity.equalsIgnoreCase("Epic"))
-                weapon.setRarity(Weapon.Rarity.Epic);
-            else if(rarity.equalsIgnoreCase("Legendary"))
-                weapon.setRarity(Weapon.Rarity.Legendary);
+            weapon.setAttackspeed(attackspeed);
+            weapon.setRange(range);
+            weapon.setDurability(durability);
             model.addElement(weapon);
         }
         catch(Exception e) 
@@ -454,14 +430,25 @@ public class Window extends javax.swing.JFrame {
                     obj.put("type",weapon.getType().toString());
                     obj.put("name",weapon.getName());
                     obj.put("dmg",(int) weapon.getDmg());
+                    obj.put("attackspeed",(int) weapon.getAttackspeed());
+                    obj.put("range",(int) weapon.getRange());
+                    obj.put("durability",(int) weapon.getDurability());
                     obj.put("rarity",weapon.getRarity().toString());
+                    obj.put("lenght",(int) weapon.getLength());
                 }else{
                     RangeWeapon weapon2 = (RangeWeapon)model.get(i);
                     obj.put("clazz",weapon2.getClass().getSimpleName());
                     obj.put("type",weapon2.getType().toString());
                     obj.put("name",weapon2.getName());
                     obj.put("dmg",(int) weapon2.getDmg());
+                    obj.put("attackspeed",(int) weapon2.getAttackspeed());
+                    obj.put("range",(int) weapon2.getRange());
+                    obj.put("durability",(int) weapon2.getDurability());
                     obj.put("rarity",weapon2.getRarity().toString());
+                    obj.put("accuracy",weapon2.getAccuracy());
+                    obj.put("stability",weapon2.getStability());
+                    obj.put("ammoCapacity",weapon2.getAmmoCapacity());
+                    obj.put("magazineCapacity",weapon2.getMagazineCapacity());
                 }
                 file.write(obj.toString());
                 file.newLine();                

@@ -21,6 +21,10 @@ public class Weapon {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    void setLenght(int lenght) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public enum Rarity {
         Common, Uncommon, Rare, Epic, Legendary;
 

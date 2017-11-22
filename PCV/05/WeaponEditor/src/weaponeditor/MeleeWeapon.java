@@ -13,7 +13,7 @@ public class MeleeWeapon extends Weapon{
     public enum Type {
         Sword, Axe, Blade, Mace, Hammer, Spear, Dagger
     }
-    private int length = 3;
+    private int length = 70;
     private Type type = Type.Sword;
     
     public MeleeWeapon(String name, int dmg, int attackspeed, int range, int durability, Rarity rarity, int length, Type type){
@@ -37,6 +37,11 @@ public class MeleeWeapon extends Weapon{
         this.setType(type);
     }
     
+    public MeleeWeapon(String name, int length){
+        super(name);
+        this.setLength(length);
+    }
+    
     public MeleeWeapon(String name){
         super(name);
     }
@@ -55,7 +60,8 @@ public class MeleeWeapon extends Weapon{
 
     public void setType(Type type) {
         this.type = type;
-    }   
+    }
+    
     public String toString(){
         return super.toString() + "["+this.type+"]\n";
     }

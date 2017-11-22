@@ -44,6 +44,15 @@ public class RangeWeapon extends Weapon{
         this.setType(type);
     }
     
+    public RangeWeapon(String name, int accuracy,
+            int stability, int ammoCapacity, int magazineCapacity){
+        super(name);
+        this.setAccuracy(accuracy);
+        this.setStability(stability);
+        this.setAmmoCapacity(ammoCapacity);
+        this.setMagazineCapacity(magazineCapacity);
+    }
+    
     public RangeWeapon(String name){
         super(name);
     }

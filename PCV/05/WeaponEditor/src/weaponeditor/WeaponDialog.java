@@ -33,6 +33,19 @@ public class WeaponDialog extends javax.swing.JDialog {
         selectRarity.removeAllItems();
         selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
         selectRarity.setSelectedItem(weapon.getRarity());
+//        if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Sword)){
+//            lenght.setMinimum(30);
+//            lenght.setMaximum(250);
+//        }
+        lenght.setValue(weapon.getLength());
+        accuracy.setVisible(false);
+        stability.setVisible(false);
+        ammoCapacity.setVisible(false);
+        magazineCapacity.setVisible(false);
+        jLabel9.setVisible(false);
+        jLabel10.setVisible(false);
+        jLabel11.setVisible(false);
+        jLabel12.setVisible(false);
     }
     
     public WeaponDialog(java.awt.Frame parent, boolean modal, RangeWeapon weapon) {
@@ -44,12 +57,18 @@ public class WeaponDialog extends javax.swing.JDialog {
         attackspeed.setValue(weapon.getAttackspeed());
         selectWeapon.removeAllItems();
         selectWeapon.setModel(new DefaultComboBoxModel(RangeWeapon.Type.values()));
-        selectWeapon.setSelectedItem(weapon.getType());
+        selectWeapon.setSelectedItem(weapon.getType());  
         range.setValue(weapon.getRange());
         durability.setValue(weapon.getDurability());
         selectRarity.removeAllItems();
         selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
         selectRarity.setSelectedItem(weapon.getRarity());
+        accuracy.setValue(weapon.getAccuracy());
+        stability.setValue(weapon.getStability());
+        ammoCapacity.setValue(weapon.getAmmoCapacity());
+        magazineCapacity.setValue(weapon.getMagazineCapacity());
+        lenght.setVisible(false);
+        jLabel8.setVisible(false);
     }
     
     public String showDialog(String weapon) {
@@ -66,6 +85,7 @@ public class WeaponDialog extends javax.swing.JDialog {
         this.meleeweapon.setRange((int)range.getValue());
         this.meleeweapon.setDurability((int)durability.getValue());
         this.meleeweapon.setRarity((Weapon.Rarity) selectRarity.getSelectedItem());
+        this.meleeweapon.setLength((int)lenght.getValue());
         return this.meleeweapon;
     }
     
@@ -77,6 +97,10 @@ public class WeaponDialog extends javax.swing.JDialog {
         this.rangeweapon.setRange((int)range.getValue());
         this.rangeweapon.setDurability((int)durability.getValue());
         this.rangeweapon.setRarity((Weapon.Rarity) selectRarity.getSelectedItem());
+        this.rangeweapon.setAccuracy((int)accuracy.getValue());
+        this.rangeweapon.setStability((int)stability.getValue());
+        this.rangeweapon.setAmmoCapacity((int)ammoCapacity.getValue());
+        this.rangeweapon.setMagazineCapacity((int)magazineCapacity.getValue()); 
         return this.rangeweapon;
     }
     /**
@@ -105,6 +129,16 @@ public class WeaponDialog extends javax.swing.JDialog {
         durability = new javax.swing.JSlider();
         selectRarity = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lenght = new javax.swing.JSlider();
+        jLabel9 = new javax.swing.JLabel();
+        accuracy = new javax.swing.JSlider();
+        stability = new javax.swing.JSlider();
+        jLabel10 = new javax.swing.JLabel();
+        ammoCapacity = new javax.swing.JSlider();
+        jLabel11 = new javax.swing.JLabel();
+        magazineCapacity = new javax.swing.JSlider();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -169,6 +203,11 @@ public class WeaponDialog extends javax.swing.JDialog {
                 selectRarityComponentAdded(evt);
             }
         });
+        selectRarity.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selectRarityItemStateChanged(evt);
+            }
+        });
         selectRarity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectRarityActionPerformed(evt);
@@ -176,6 +215,46 @@ public class WeaponDialog extends javax.swing.JDialog {
         });
 
         jLabel7.setText("vzacnost");
+
+        jLabel8.setText("lenght");
+
+        lenght.setMajorTickSpacing(50);
+        lenght.setMinorTickSpacing(10);
+        lenght.setPaintLabels(true);
+        lenght.setPaintTicks(true);
+        lenght.setValue(0);
+
+        jLabel9.setText("accuracy");
+
+        accuracy.setMajorTickSpacing(50);
+        accuracy.setMinorTickSpacing(10);
+        accuracy.setPaintLabels(true);
+        accuracy.setPaintTicks(true);
+        accuracy.setValue(0);
+
+        stability.setMajorTickSpacing(50);
+        stability.setMinorTickSpacing(10);
+        stability.setPaintLabels(true);
+        stability.setPaintTicks(true);
+        stability.setValue(0);
+
+        jLabel10.setText("stability");
+
+        ammoCapacity.setMajorTickSpacing(50);
+        ammoCapacity.setMinorTickSpacing(10);
+        ammoCapacity.setPaintLabels(true);
+        ammoCapacity.setPaintTicks(true);
+        ammoCapacity.setValue(0);
+
+        jLabel11.setText("ammoCapacity");
+
+        magazineCapacity.setMajorTickSpacing(50);
+        magazineCapacity.setMinorTickSpacing(10);
+        magazineCapacity.setPaintLabels(true);
+        magazineCapacity.setPaintTicks(true);
+        magazineCapacity.setValue(0);
+
+        jLabel12.setText("magazineCapacity");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,7 +301,29 @@ public class WeaponDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(selectRarity, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(102, 102, 102)))))
+                                .addGap(102, 102, 102))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(23, 23, 23)
+                                .addComponent(lenght, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(23, 23, 23)
+                                .addComponent(accuracy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(magazineCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11))
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ammoCapacity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(stability, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -255,10 +356,40 @@ public class WeaponDialog extends javax.swing.JDialog {
                     .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(durability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(durability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lenght, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(stability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(27, 27, 27)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(ammoCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(accuracy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(magazineCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel12)
+                        .addGap(31, 31, 31)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OKButton)
                     .addComponent(CancelButton))
@@ -283,7 +414,7 @@ public class WeaponDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_selectWeaponComponentAdded
 
     private void selectWeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectWeaponActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_selectWeaponActionPerformed
 
     private void selectRarityComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_selectRarityComponentAdded
@@ -293,6 +424,10 @@ public class WeaponDialog extends javax.swing.JDialog {
     private void selectRarityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRarityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectRarityActionPerformed
+
+    private void selectRarityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectRarityItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectRarityItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -339,20 +474,30 @@ public class WeaponDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JButton OKButton;
+    private javax.swing.JSlider accuracy;
+    private javax.swing.JSlider ammoCapacity;
     private javax.swing.JSpinner attackspeed;
     private javax.swing.JSpinner dmg;
     private javax.swing.JSlider durability;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JSlider lenght;
+    private javax.swing.JSlider magazineCapacity;
     private javax.swing.JTextField name;
     private javax.swing.JSlider range;
     private javax.swing.JComboBox<String> selectRarity;
     private javax.swing.JComboBox<String> selectWeapon;
+    private javax.swing.JSlider stability;
     private javax.swing.JLabel weaponLabel;
     // End of variables declaration//GEN-END:variables
 }
