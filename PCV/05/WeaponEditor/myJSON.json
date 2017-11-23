@@ -1,1 +1,5 @@
-{"attackspeed":1,"durability":71,"name":"","ammoCapacity":23,"range":78,"accuracy":23,"magazineCapacity":17,"type":"Smg","clazz":"RangeWeapon","stability":3,"dmg":49,"rarity":"Rare"}
+{"weapons":[{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Epic"},
+{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Epic"},
+{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Common"},
+{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Uncommon"}
+]}
