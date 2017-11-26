@@ -36,10 +36,6 @@ public class WeaponDialog extends javax.swing.JDialog {
         selectRarity.removeAllItems();
         selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
         selectRarity.setSelectedItem(weapon.getRarity());
-//        if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Sword)){
-//            lenght.setMinimum(30);
-//            lenght.setMaximum(250);
-//        }
         lenght.setValue(weapon.getLength());
         accuracy.setVisible(false);
         stability.setVisible(false);
@@ -109,6 +105,13 @@ public class WeaponDialog extends javax.swing.JDialog {
         this.rangeweapon.setAmmoCapacity((int)ammoCapacity.getValue());
         this.rangeweapon.setMagazineCapacity((int)magazineCapacity.getValue()); 
         return this.rangeweapon;
+    }
+    
+    private void setSlider(javax.swing.JSlider name, int min,int max,int space){
+        name.setMinimum(min);
+        name.setMaximum(max);
+        name.setMajorTickSpacing(space);
+        name.setPaintTicks(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,8 +194,9 @@ public class WeaponDialog extends javax.swing.JDialog {
 
         jLabel4.setText("typ");
 
-        range.setMajorTickSpacing(50);
-        range.setMinorTickSpacing(10);
+        range.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        range.setMajorTickSpacing(10);
+        range.setMinorTickSpacing(5);
         range.setPaintLabels(true);
         range.setPaintTicks(true);
         range.setValue(0);
@@ -201,8 +205,9 @@ public class WeaponDialog extends javax.swing.JDialog {
 
         jLabel6.setText("durability");
 
-        durability.setMajorTickSpacing(50);
-        durability.setMinorTickSpacing(10);
+        durability.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        durability.setMajorTickSpacing(10);
+        durability.setMinorTickSpacing(5);
         durability.setPaintLabels(true);
         durability.setPaintTicks(true);
         durability.setValue(0);
@@ -229,38 +234,44 @@ public class WeaponDialog extends javax.swing.JDialog {
 
         jLabel8.setText("lenght");
 
-        lenght.setMajorTickSpacing(50);
-        lenght.setMinorTickSpacing(10);
+        lenght.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        lenght.setMajorTickSpacing(10);
+        lenght.setMinorTickSpacing(5);
         lenght.setPaintLabels(true);
         lenght.setPaintTicks(true);
         lenght.setValue(0);
 
         jLabel9.setText("accuracy");
 
-        accuracy.setMajorTickSpacing(50);
-        accuracy.setMinorTickSpacing(10);
+        accuracy.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        accuracy.setMajorTickSpacing(10);
+        accuracy.setMinorTickSpacing(5);
         accuracy.setPaintLabels(true);
         accuracy.setPaintTicks(true);
         accuracy.setValue(0);
 
-        stability.setMajorTickSpacing(50);
-        stability.setMinorTickSpacing(10);
+        stability.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        stability.setMajorTickSpacing(10);
+        stability.setMinorTickSpacing(5);
         stability.setPaintLabels(true);
         stability.setPaintTicks(true);
         stability.setValue(0);
 
         jLabel10.setText("stability");
 
-        ammoCapacity.setMajorTickSpacing(50);
-        ammoCapacity.setMinorTickSpacing(10);
+        ammoCapacity.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        ammoCapacity.setMajorTickSpacing(10);
+        ammoCapacity.setMinorTickSpacing(5);
         ammoCapacity.setPaintLabels(true);
         ammoCapacity.setPaintTicks(true);
         ammoCapacity.setValue(0);
 
         jLabel11.setText("ammoCapacity");
 
-        magazineCapacity.setMajorTickSpacing(50);
-        magazineCapacity.setMinorTickSpacing(10);
+        magazineCapacity.setFont(new java.awt.Font("Tahoma", 0, 7)); // NOI18N
+        magazineCapacity.setMajorTickSpacing(1);
+        magazineCapacity.setMaximum(50);
+        magazineCapacity.setMinorTickSpacing(5);
         magazineCapacity.setPaintLabels(true);
         magazineCapacity.setPaintTicks(true);
         magazineCapacity.setValue(0);
@@ -290,7 +301,7 @@ public class WeaponDialog extends javax.swing.JDialog {
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(image)
                 .addGap(2, 2, 2))
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,6 +478,27 @@ public class WeaponDialog extends javax.swing.JDialog {
                 int digit = selectWeapon.getSelectedIndex()+1;
                 ImageIcon icon = new ImageIcon(getClass().getResource("/image/melee"+digit+".png"));
                 image.setIcon(icon);
+                if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Sword)){
+                    setSlider(lenght,80,200,40);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Axe)){
+                    setSlider(lenght,50,150,50);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Blade)){
+                    setSlider(lenght,40,70,30);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Mace)){
+                    setSlider(lenght,60,120,30);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Hammer)){
+                    setSlider(lenght,20,180,40);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Spear)){
+                    setSlider(lenght,140,220,30);
+                }
+                else if(selectWeapon.getSelectedItem().equals(MeleeWeapon.Type.Dagger)){
+                    setSlider(lenght,10,30,10);;
+                }
             }
         }
         else{
@@ -474,6 +506,34 @@ public class WeaponDialog extends javax.swing.JDialog {
                 int digit = selectWeapon.getSelectedIndex()+1;
                 ImageIcon icon = new ImageIcon(getClass().getResource("/image/range"+digit+".png"));
                 image.setIcon(icon);
+                if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Bow)){
+                    setSlider(ammoCapacity,20,60,20);
+                    setSlider(magazineCapacity,1,3,1);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Crossbow)){
+                    setSlider(ammoCapacity,20,60,20);
+                    setSlider(magazineCapacity,5,20,5);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Pistol)){
+                    setSlider(ammoCapacity,60,180,60);
+                    setSlider(magazineCapacity,6,20,7);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Smg)){
+                    setSlider(ammoCapacity,60,180,60);
+                    setSlider(magazineCapacity,30,50,5);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Assult)){
+                    setSlider(ammoCapacity,60,200,30);
+                    setSlider(magazineCapacity,20,40,5);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.Sniper)){
+                    setSlider(ammoCapacity,10,60,10);
+                    setSlider(magazineCapacity,5,10,5);
+                }
+                else if(selectWeapon.getSelectedItem().equals(RangeWeapon.Type.RocketLauncher)){
+                    setSlider(ammoCapacity,2,10,4);
+                    setSlider(magazineCapacity,1,3,1);
+                }
             }
         }
     }//GEN-LAST:event_selectWeaponActionPerformed
@@ -487,6 +547,21 @@ public class WeaponDialog extends javax.swing.JDialog {
             int digit = selectRarity.getSelectedIndex()+1;
             ImageIcon icon = new ImageIcon(getClass().getResource("/image/rarity"+digit+".png"));
             imageRarity.setIcon(icon);
+            if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Common)){
+                dmg.setValue(30);
+            }
+            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Uncommon)){
+                dmg.setValue(40);
+            }
+            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Rare)){
+                dmg.setValue(50);
+            }
+            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Epic)){
+                dmg.setValue(60);
+            }
+            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Legendary)){
+                dmg.setValue(70);
+            }
         }
     }//GEN-LAST:event_selectRarityActionPerformed
 
