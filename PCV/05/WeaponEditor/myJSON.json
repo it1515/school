@@ -1,5 +1,7 @@
-{"weapons":[{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Epic"},
-{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Epic"},
-{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Common"},
-{"attackspeed":2,"durability":100,"name":"","ammoCapacity":90,"range":50,"accuracy":50,"magazineCapacity":30,"type":"Bow","clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Uncommon"}
+{"weapons":[{"lenght":70,"attackspeed":2,"durability":100,"name":"","range":50,"type":"Sword","clazz":"MeleeWeapon","dmg":50,"rarity":"Common"},
+{"lenght":70,"attackspeed":2,"durability":100,"name":"","range":50,"type":"Axe","clazz":"MeleeWeapon","dmg":50,"rarity":"Legendary"},
+{"lenght":70,"attackspeed":2,"durability":100,"name":"","range":50,"type":"Mace","clazz":"MeleeWeapon","dmg":50,"rarity":"Rare"},
+{"durability":100,"range":50,"accuracy":50,"type":"RocketLauncher","lenght":70,"attackspeed":2,"name":"","ammoCapacity":90,"magazineCapacity":30,"clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Epic"},
+{"durability":100,"range":50,"accuracy":50,"type":"Smg","lenght":70,"attackspeed":2,"name":"","ammoCapacity":90,"magazineCapacity":30,"clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Legendary"},
+{"durability":100,"range":50,"accuracy":50,"type":"Crossbow","lenght":70,"attackspeed":2,"name":"","ammoCapacity":90,"magazineCapacity":30,"clazz":"RangeWeapon","stability":50,"dmg":50,"rarity":"Uncommon"}
 ]}

@@ -435,13 +435,13 @@ public class Window extends javax.swing.JFrame {
                     MeleeWeapon weapon = (MeleeWeapon)model.get(i);
                     obj.put("clazz",weapon.getClass().getSimpleName());
                     obj.put("type",weapon.getType().toString());
-//                    obj.put("name",weapon.getName());
-//                    obj.put("dmg",(int) weapon.getDmg());
-//                    obj.put("attackspeed",(int) weapon.getAttackspeed());
-//                    obj.put("range",(int) weapon.getRange());
-//                    obj.put("durability",(int) weapon.getDurability());
-//                    obj.put("rarity",weapon.getRarity().toString());
-//                    obj.put("lenght",(int) weapon.getLength());
+                    obj.put("name",weapon.getName());
+                    obj.put("dmg",(int) weapon.getDmg());
+                    obj.put("attackspeed",(int) weapon.getAttackspeed());
+                    obj.put("range",(int) weapon.getRange());
+                    obj.put("durability",(int) weapon.getDurability());
+                    obj.put("rarity",weapon.getRarity().toString());
+                    obj.put("lenght",(int) weapon.getLength());
                 }else{
                     RangeWeapon weapon2 = (RangeWeapon)model.get(i);
                     obj.put("clazz",weapon2.getClass().getSimpleName());
