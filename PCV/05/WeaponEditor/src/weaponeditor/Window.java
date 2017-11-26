@@ -276,71 +276,6 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_editMenuActionPerformed
 
     private void openFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileMenuActionPerformed
-//        try (BufferedReader br = new BufferedReader(new FileReader("soubor.txt")))
-//        {
-//                String s;
-//                int i = 0;
-//                while ((s = br.readLine()) != null)
-//                {
-//                        if(i>0)
-//                        {
-//                            String[] attr = s.split(";");
-//                            Weapon weapon;
-//                            if (attr[0].equalsIgnoreCase("MeleeWeapon")) {
-//                                weapon = new MeleeWeapon(attr[2]);
-//                                if(attr[1].equalsIgnoreCase("Sword"))
-//                                    weapon.setType(MeleeWeapon.Type.Sword);
-//                                else if(attr[1].equalsIgnoreCase("Axe"))
-//                                    weapon.setType(MeleeWeapon.Type.Axe);
-//                                else if(attr[1].equalsIgnoreCase("Blade"))
-//                                    weapon.setType(MeleeWeapon.Type.Blade);
-//                                else if(attr[1].equalsIgnoreCase("Mace"))
-//                                    weapon.setType(MeleeWeapon.Type.Mace);
-//                                else if(attr[1].equalsIgnoreCase("Hammer"))
-//                                    weapon.setType(MeleeWeapon.Type.Hammer);
-//                                else if(attr[1].equalsIgnoreCase("Spear"))
-//                                    weapon.setType(MeleeWeapon.Type.Spear);
-//                                else if(attr[1].equalsIgnoreCase("Dagger"))
-//                                    weapon.setType(MeleeWeapon.Type.Dagger);
-//                            } else {
-//                                weapon = new RangeWeapon(attr[2]);
-//                                if(attr[1].equalsIgnoreCase("Bow"))
-//                                    weapon.setType(RangeWeapon.Type.Bow);
-//                                else if(attr[1].equalsIgnoreCase("Crossbow"))
-//                                    weapon.setType(RangeWeapon.Type.Crossbow);
-//                                else if(attr[1].equalsIgnoreCase("Pistol"))
-//                                    weapon.setType(RangeWeapon.Type.Pistol);
-//                                else if(attr[1].equalsIgnoreCase("Smg"))
-//                                    weapon.setType(RangeWeapon.Type.Smg);
-//                                else if(attr[1].equalsIgnoreCase("Assult"))
-//                                    weapon.setType(RangeWeapon.Type.Assult);
-//                                else if(attr[1].equalsIgnoreCase("Sniper"))
-//                                    weapon.setType(RangeWeapon.Type.Sniper);
-//                                else if(attr[1].equalsIgnoreCase("RocketLauncher"))
-//                                    weapon.setType(RangeWeapon.Type.RocketLauncher);
-//                            }
-//                            
-//                                    
-//                            weapon.setDmg(Integer.parseInt(attr[3]));
-//                            if(attr[4].equalsIgnoreCase("Common"))
-//                                weapon.setRarity(Weapon.Rarity.Common);
-//                            else if(attr[4].equalsIgnoreCase("Uncommon"))
-//                                weapon.setRarity(Weapon.Rarity.Uncommon);
-//                            else if(attr[4].equalsIgnoreCase("Rare"))
-//                                weapon.setRarity(Weapon.Rarity.Rare);
-//                            else if(attr[4].equalsIgnoreCase("Epic"))
-//                                weapon.setRarity(Weapon.Rarity.Epic);
-//                            else if(attr[4].equalsIgnoreCase("Legendary"))
-//                                weapon.setRarity(Weapon.Rarity.Legendary);
-//                            model.addElement(weapon);
-//                        }
-//                        i++;
-//                }
-//        }
-//        catch (Exception e)
-//        {
-//            System.err.println("Chyba při četení ze souboru.");
-//        }
         JSONParser parser = new JSONParser();
         try (BufferedReader br = new BufferedReader(new FileReader("myJSON.json"))){
             Object obj = parser.parse(new FileReader("myJSON.json"));
@@ -384,46 +319,6 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_openFileMenuActionPerformed
 
     private void saveFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileMenuActionPerformed
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter("soubor.txt")))
-//        {
-//                bw.write("class;type;name;dmg;rarity");
-//                bw.newLine();
-//                
-//                for(int i=0; i<model.getSize();i++)
-//                {                    
-//                    if(model.get(i).getClass().getSimpleName().equals("MeleeWeapon")){
-//                        MeleeWeapon weapon = (MeleeWeapon)model.get(i);
-//                        String output = weapon.getClass().getSimpleName() + ";"
-//                                + weapon.getType() + ";"
-//                                + weapon.getName() + ";"
-//                                + weapon.getDmg() + ";"
-//                                + weapon.getRarity();
-//                        bw.write(output);
-//                    }else{
-//                        RangeWeapon weapon2 = (RangeWeapon)model.get(i);
-//                        String output2 = weapon2.getClass().getSimpleName() + ";"
-//                                + weapon2.getType() + ";"
-//                                + weapon2.getName() + ";"
-//                                + weapon2.getDmg() + ";"
-//                                + weapon2.getRarity();
-//                        bw.write(output2);
-//                    }
-//                    bw.newLine();
-//                    
-////                    RangeWeapon weapon2 = (RangeWeapon)model.get(i);
-////                    String output2 = weapon2.getClass().getSimpleName() + ";"
-////                            + weapon2.getType() + ";"
-////                            + weapon2.getName() + ";"
-////                            + weapon2.getDmg() + ";"
-////                            + weapon2.getRarity();
-////                    bw.write(output2);
-////                    bw.newLine();
-//                }
-//                bw.flush();
-//        }catch (Exception e)
-//        {
-//                System.err.println("Do souboru se nepovedlo zapsat.");
-//        }
         try(BufferedWriter file = new BufferedWriter(new FileWriter("myJSON.json")))
         {
             JSONObject obj = new JSONObject();
@@ -461,8 +356,7 @@ public class Window extends javax.swing.JFrame {
                 if(i<model.getSize()-1)
                     file.write(",");
                 file.newLine();
-            }
-//            file.write("{\"weapons\":"+list.toJSONString()+"}");             
+            }         
             file.write("]}");
             file.flush();
         }   

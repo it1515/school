@@ -236,6 +236,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="dmg">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="dmgStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

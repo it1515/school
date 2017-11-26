@@ -33,9 +33,7 @@ public class WeaponDialog extends javax.swing.JDialog {
         selectWeapon.setSelectedItem(weapon.getType());
         range.setValue(weapon.getRange());
         durability.setValue(weapon.getDurability());
-        selectRarity.removeAllItems();
-        selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
-        selectRarity.setSelectedItem(weapon.getRarity());
+        setSelectedRarity(weapon.getRarity());
         lenght.setValue(weapon.getLength());
         accuracy.setVisible(false);
         stability.setVisible(false);
@@ -61,9 +59,7 @@ public class WeaponDialog extends javax.swing.JDialog {
         selectWeapon.setSelectedItem(weapon.getType());  
         range.setValue(weapon.getRange());
         durability.setValue(weapon.getDurability());
-        selectRarity.removeAllItems();
-        selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
-        selectRarity.setSelectedItem(weapon.getRarity());
+        setSelectedRarity(weapon.getRarity());
         accuracy.setValue(weapon.getAccuracy());
         stability.setValue(weapon.getStability());
         ammoCapacity.setValue(weapon.getAmmoCapacity());
@@ -113,6 +109,13 @@ public class WeaponDialog extends javax.swing.JDialog {
         name.setMajorTickSpacing(space);
         name.setPaintTicks(true);
     }
+    
+    private void setSelectedRarity(Weapon.Rarity rarity){
+        selectRarity.removeAllItems();
+        selectRarity.setModel(new DefaultComboBoxModel(Weapon.Rarity.values()));
+        selectRarity.setSelectedItem(rarity);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,6 +173,12 @@ public class WeaponDialog extends javax.swing.JDialog {
         });
 
         jLabel1.setText("nazev");
+
+        dmg.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                dmgStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("dmg");
 
@@ -547,19 +556,19 @@ public class WeaponDialog extends javax.swing.JDialog {
             int digit = selectRarity.getSelectedIndex()+1;
             ImageIcon icon = new ImageIcon(getClass().getResource("/image/rarity"+digit+".png"));
             imageRarity.setIcon(icon);
-            if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Common)){
+            if(selectRarity.getSelectedItem().equals(Weapon.Rarity.Common) && ((int)dmg.getValue() < 25 || (int)dmg.getValue() > 34)){
                 dmg.setValue(30);
             }
-            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Uncommon)){
+            else if(selectRarity.getSelectedItem().equals(Weapon.Rarity.Uncommon) && ((int)dmg.getValue() < 35 || (int)dmg.getValue() > 44)){
                 dmg.setValue(40);
             }
-            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Rare)){
+            else if(selectRarity.getSelectedItem().equals(Weapon.Rarity.Rare) && ((int)dmg.getValue() < 45 || (int)dmg.getValue() > 54)){
                 dmg.setValue(50);
             }
-            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Epic)){
+            else if(selectRarity.getSelectedItem().equals(Weapon.Rarity.Epic) && ((int)dmg.getValue() < 55 || (int)dmg.getValue() > 64)){
                 dmg.setValue(60);
             }
-            else if(selectWeapon.getSelectedItem().equals(Weapon.Rarity.Legendary)){
+            else if(selectRarity.getSelectedItem().equals(Weapon.Rarity.Legendary) && ((int)dmg.getValue() < 65 || (int)dmg.getValue() > 75)){
                 dmg.setValue(70);
             }
         }
@@ -568,6 +577,24 @@ public class WeaponDialog extends javax.swing.JDialog {
     private void selectRarityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selectRarityItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_selectRarityItemStateChanged
+
+    private void dmgStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dmgStateChanged
+        if((int)dmg.getValue() > 24 && (int)dmg.getValue() < 35){
+            setSelectedRarity(Weapon.Rarity.Common);
+        }
+        else if((int)dmg.getValue() > 34 && (int)dmg.getValue() < 45){
+            setSelectedRarity(Weapon.Rarity.Uncommon);
+        }
+        else if((int)dmg.getValue() > 44 && (int)dmg.getValue() < 55){
+            setSelectedRarity(Weapon.Rarity.Rare);
+        }
+        else if((int)dmg.getValue() > 54 && (int)dmg.getValue() < 65){
+            setSelectedRarity(Weapon.Rarity.Epic);
+        }
+        else if((int)dmg.getValue() > 64 && (int)dmg.getValue() < 76){
+            setSelectedRarity(Weapon.Rarity.Legendary);
+        }    
+    }//GEN-LAST:event_dmgStateChanged
 
     /**
      * @param args the command line arguments
