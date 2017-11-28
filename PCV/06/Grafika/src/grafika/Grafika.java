@@ -11,6 +11,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +44,39 @@ public class Grafika {
         headLabel.setHorizontalAlignment(JLabel.CENTER);
         /*Vytvoreni tlačítka*/
         Platno platno = new Platno();
+        platno.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+               
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                System.out.println((me.getButton()));
+                if(me.getButton() == 1){
+                    platno.setPoint(me.getX(),me.getY(),true);
+                    platno.repaint();
+                }
+                if(me.getButton() == 3){
+                    platno.setPoint(me.getX(),me.getY(),false);
+                    platno.repaint();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+               
+            }
+        });
         drawButton = new JButton("Random");
         drawButton.addActionListener(new ActionListener(){
             @Override
@@ -49,7 +84,7 @@ public class Grafika {
                 System.out.println("Tlačítko tlačí");
                 int x = (int)Math.floor(Math.random()*platno.getWidth());
                 int y = (int)Math.floor(Math.random()*platno.getHeight());
-                platno.setPoint(x,y);
+                platno.setPoint(x,y,true);
                 platno.repaint();
             }
             
