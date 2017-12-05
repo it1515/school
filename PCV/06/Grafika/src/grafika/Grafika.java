@@ -11,8 +11,6 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +24,7 @@ public class Grafika {
 
     private JFrame window;
     private JButton drawButton;
+    private JButton restartButton;
     private JLabel headLabel;
     
     public Grafika(String title,int width,int height){
@@ -44,39 +43,8 @@ public class Grafika {
         headLabel.setHorizontalAlignment(JLabel.CENTER);
         /*Vytvoreni tlačítka*/
         Platno platno = new Platno();
-        platno.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-               
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                System.out.println((me.getButton()));
-                if(me.getButton() == 1){
-                    platno.setPoint(me.getX(),me.getY(),true);
-                    platno.repaint();
-                }
-                if(me.getButton() == 3){
-                    platno.setPoint(me.getX(),me.getY(),false);
-                    platno.repaint();
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-               
-            }
-        });
+        platno.init();
+        
         drawButton = new JButton("Random");
         drawButton.addActionListener(new ActionListener(){
             @Override
@@ -88,10 +56,20 @@ public class Grafika {
                 platno.repaint();
             }
             
-        });      
+        });
+        restartButton = new JButton("Restart");
+        restartButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("Restart");
+            }
+            
+        });
+        
         Container pane = window.getContentPane();
         pane.add(headLabel,BorderLayout.PAGE_START);
         pane.add(drawButton,BorderLayout.PAGE_END);
+        //pane.add(restartButton,BorderLayout.AFTER_LINE_ENDS);
         pane.add(platno,BorderLayout.CENTER);
         window.setVisible(true);
     }
