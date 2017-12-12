@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -18,31 +20,19 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.Timer;
 
 /**
  *
  * @author student
  */
-class Bod {
-    public Point point;
-    public Color color;
-    public int radius;
-    public boolean fill;
-    public Bod(int x, int y,boolean fill){
-        this.point = new Point(x,y);
-        int red = (int)Math.floor(Math.random()*256);
-        int green = (int)Math.floor(Math.random()*256);
-        int blue = (int)Math.floor(Math.random()*256);
-        this.color = new Color(red,green,blue);
-        this.radius = (int)Math.floor(Math.random()*20)+10;
-        this.fill = fill;
-    }
-}
 
-public class Platno extends JComponent implements MouseListener, MouseMotionListener, KeyListener {
+
+public class Platno extends JComponent implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
     private Point p = new Point(100,100);
     private boolean drag;
-    ArrayList<Bod> points;
+    ArrayList<Tvar> points;
+    private Timer timer;
     
     public Platno() {
         this.points = new ArrayList();
@@ -50,7 +40,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     
     public void setPoint(int x, int y,boolean fill){
         p = new Point(x,y);
-        this.points.add(new Bod(p.x,p.y,fill));
+        this.points.add(new Kruh(p.x,p.y,fill));
     }
     
     public void setAxis(int x, int y){
@@ -62,15 +52,13 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         this.addMouseMotionListener(this); 
         this.addKeyListener(this);
         this.setFocusable(true);
+        this.timer = new Timer(50,this);
+        timer.start();
     }
     
     public void drawPoints(Graphics g){
-        for(Bod b: this.points){
-            g.setColor(b.color);
-            if(b.fill)
-            g.fillOval(b.point.x- b.radius,b.point.y- b.radius,2*b.radius,2*b.radius);
-            else
-            g.drawOval(b.point.x- b.radius,b.point.y- b.radius,2*b.radius,2*b.radius);
+        for(Tvar b: this.points){
+            b.paint(g);
         }
     }
     
@@ -136,18 +124,22 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     @Override
     public void mouseDragged(MouseEvent me) {
         if(drag){
-        Bod b = this.points.get(this.points.size()-1);
-        b.point.x = me.getX();
-        b.point.y = me.getY();
-        p.x = me.getX();
-        p.y = me.getY();
-        this.repaint();
+            Tvar b = this.points.get(this.points.size()-1);
+            b.point.x = me.getX();
+            b.point.y = me.getY();
+            p.x = me.getX();
+            p.y = me.getY();
+            this.repaint();
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent me) {
         System.out.println("x:"+me.getX()+" y:"+me.getY());
+        for(Tvar t: this.points){
+            if(t.detect(me.getX(),me.getY()))
+                System.out.println("Trolejbus");
+        }
         //this.setPoint(me.getX(),me.getY(),true);
         p.x = me.getX();
         p.y = me.getY();
@@ -161,7 +153,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        Bod b = this.points.get(this.points.size()-1);
+        Tvar b = this.points.get(this.points.size()-1);
     //nahoru 38, dolu 40, doprava 39, doleva 37
         
         switch(ke.getKeyCode()){
@@ -185,10 +177,20 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
                 this.setPoint(p.x, p.y, true);
                 break;
             case KeyEvent.VK_PAGE_UP:
-                b.radius++;
+                if(b.getSize() < 50)
+                    b.setSize(1);
                 break;
             case KeyEvent.VK_PAGE_DOWN:
-                b.radius--;
+                if(b.getSize() > 10)
+                    b.setSize(-1);
+                break;
+            case KeyEvent.VK_END:
+                if(b.getSpeed() < 15)
+                    b.setSpeed(1);
+                break;
+            case KeyEvent.VK_HOME:
+                if(b.getSpeed() > -15)
+                    b.setSpeed(-1);
                 break;
         }
         this.repaint();
@@ -197,6 +199,14 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     @Override
     public void keyReleased(KeyEvent ke) {
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        for(Tvar t: this.points){
+            t.animate(this);
+        }
+        this.repaint();
     }
     
 }
