@@ -33,6 +33,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     private boolean drag;
     ArrayList<Tvar> points;
     private Timer timer;
+    private Tvar activeObj;
     
     public Platno() {
         this.points = new ArrayList();
@@ -41,6 +42,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     public void setPoint(int x, int y,boolean fill){
         p = new Point(x,y);
         this.points.add(new Kruh(p.x,p.y,fill));
+        this.activeObj = this.points.get(this.points.size()-1);
     }
     
     public void setAxis(int x, int y){
@@ -81,7 +83,6 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         g.fillRect(0, 0, size.width, size.height);
         drawAxis(g, size);
         drawPoints(g);
-        
     }
 
     @Override
@@ -124,7 +125,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     @Override
     public void mouseDragged(MouseEvent me) {
         if(drag){
-            Tvar b = this.points.get(this.points.size()-1);
+            Tvar b = this.activeObj;
             b.point.x = me.getX();
             b.point.y = me.getY();
             p.x = me.getX();
@@ -135,10 +136,14 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void mouseMoved(MouseEvent me) {
-        System.out.println("x:"+me.getX()+" y:"+me.getY());
+        //System.out.println("x:"+me.getX()+" y:"+me.getY());
         for(Tvar t: this.points){
-            if(t.detect(me.getX(),me.getY()))
-                System.out.println("Trolejbus");
+            t.setActive(me.getX(),me.getY());
+            if(t.getActive()){
+                this.activeObj = t;
+            }
+                
+                
         }
         //this.setPoint(me.getX(),me.getY(),true);
         p.x = me.getX();
@@ -153,7 +158,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        Tvar b = this.points.get(this.points.size()-1);
+        Tvar b = this.activeObj;
     //nahoru 38, dolu 40, doprava 39, doleva 37
         
         switch(ke.getKeyCode()){
@@ -191,6 +196,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
             case KeyEvent.VK_HOME:
                 if(b.getSpeed() > -15)
                     b.setSpeed(-1);
+                break;
+            case KeyEvent.VK_DELETE:
+                this.points.remove(b);
                 break;
         }
         this.repaint();

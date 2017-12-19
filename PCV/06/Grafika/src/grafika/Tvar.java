@@ -18,6 +18,7 @@ abstract class Tvar {
     protected Color color;
     protected boolean fill;
     protected int speed;
+    protected boolean active;
     protected Tvar(int x, int y,boolean fill){
         this.point = new Point(x,y);
         int red = (int)Math.floor(Math.random()*256);
@@ -26,6 +27,22 @@ abstract class Tvar {
         this.color = new Color(red,green,blue);
         this.fill = fill;
         this.speed = 10;
+        this.active = false;
+    }
+    
+    public void setActive(int x, int y){
+        if(this.detect(x,y)){
+            this.active = true;
+        }        
+        else
+            this.active = false;            
+    }
+    
+    public boolean getActive(){
+        if(this.active)
+            return true;
+        else
+            return false;
     }
     
     abstract public void setSize(int size);

@@ -5,7 +5,11 @@
  */
 package grafika;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -13,10 +17,15 @@ import java.awt.Graphics;
  */
 public class Kruh extends Tvar{
     public int radius;
-    
+    private Image image;
     public Kruh(int x, int y, boolean fill) {
         super(x, y, fill);
         this.radius = (int)Math.floor(Math.random()*20)+10;
+        try{
+            this.image = ImageIO.read(this.getClass().getResource("Pikachu.png"));
+        }catch(IOException ex){
+            
+        }
     }
     
     @Override
@@ -39,13 +48,19 @@ public class Kruh extends Tvar{
         return this.speed;
     }
     
+    //TODO Zmen na zlutou a dokud se nenajde jini aktivni objekt
     @Override
     public void paint(Graphics g){
-        g.setColor(this.color);
-            if(this.fill)
-                g.fillOval(this.point.x- this.radius,this.point.y- this.radius,2*this.radius,2*this.radius);
-            else
-                g.drawOval(this.point.x- this.radius,this.point.y- this.radius,2*this.radius,2*this.radius);
+        if(this.getActive())
+            g.setColor(Color.yellow);
+        else
+            g.setColor(this.color);
+        if(this.fill)
+            g.fillOval(this.point.x- this.radius,this.point.y- this.radius,2*this.radius,2*this.radius);
+        else{
+            g.drawOval(this.point.x- this.radius,this.point.y- this.radius,2*this.radius,2*this.radius);
+            g.drawImage(this.image,this.point.x - this.radius,this.point.y - this.radius, 2*this.radius,2*this.radius,null);
+        }
     }
       
     @Override
