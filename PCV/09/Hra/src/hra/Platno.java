@@ -11,7 +11,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,9 +22,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-
 /**
  *
  * @author student
@@ -32,14 +34,21 @@ import javax.swing.Timer;
 public class Platno extends JComponent implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
     private Point p = new Point(100,100);
     private boolean drag;
+    ArrayList<Objekt> points;
     private Timer timer;
-    
+    private int meters;
+    private Font myFont = new Font("Aerial", Font.BOLD, 18);
     public Platno() {
-
+        this.points = new ArrayList();
     }
     
     public void setPoint(int x, int y,boolean fill){
         p = new Point(x,y);
+        this.points.add(new Projectile(p.x,p.y,fill));
+    }
+    
+    public void createObject(int x, int y,boolean fill){
+        this.points.add(new Projectile(p.x,p.y,fill));
     }
     
     public void setAxis(int x, int y){
@@ -52,10 +61,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         this.addKeyListener(this);
         this.setFocusable(true);
         this.timer = new Timer(50,this);
-        timer.start();
+        timer.start();       
     }
-    
-    
+   
     public void drawAxis(Graphics g, Dimension size){
         Graphics2D g2d = (Graphics2D) g;
         float tloustka = 1f;
@@ -69,7 +77,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         g2d.drawLine(p.x, 0, p.x, size.height);
     }
     
-    public void drawPlayer(Graphics g){
+    public void drawPlayer(Graphics g,Dimension size){
         Graphics2D g2 = (Graphics2D) g;
         float tloustka = 3f;
         float miterLimit = 5f;
@@ -82,7 +90,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         g2.setColor(Color.blue);
         //g2d.drawLine(0, p.y, size.width, p.y);
         //g2d.drawLine(p.x, 0, p.x, size.height);
-        g2.draw(new Rectangle2D.Double(p.x-rectwidth/2,420,rectwidth,rectheight));
+        g2.draw(new Rectangle2D.Double(p.x-rectwidth/2,size.height-60,rectwidth,rectheight));
     }
     
      public void drawCrosshair(Graphics g){
@@ -102,22 +110,31 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         g2.draw(new Rectangle2D.Double(p.x,p.y-crossH/2,0,crossH));
     }
      
-    public void drawDistance(Graphics g){ 
+    public void drawDistance(Graphics g,Dimension size){
         String str = "Distance: ";
         Graphics2D g2 = (Graphics2D) g;
-        //g2.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+        g2.setFont(myFont);
         g2.setColor(Color.black);
-        g2.drawString(str, 600, 420);
+        g2.drawString(str, size.width-170, size.height-80);
     }
     
-    public void paint(Graphics g){
-        g.setColor(Color.white);
+    public void drawPoints(Graphics g){
+        for(Objekt o: this.points){
+            o.paint(g);
+        }
+
+    }
+    
+    public void paint(Graphics g){   
+        g.setColor(Color.gray);
+        //g.drawImage(img, 0, 0, null);
         Dimension size = this.getSize();
         g.fillRect(0, 0, size.width, size.height);
         //drawAxis(g, size);
-        drawPlayer(g);
+        drawPlayer(g,size);
         drawCrosshair(g);
-        drawDistance(g);
+        drawDistance(g,size);
+        drawPoints(g);
     }
 
     @Override
@@ -127,22 +144,17 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent me) {
-        if (me.getButton() == 1) {
-            drag = true;
-        }
-        if (me.getButton() != 1){
-            drag = false;
-        }
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
         System.out.println(me.getButton());
-        if (me.getButton() == 3) {
-            this.setPoint(me.getX(),me.getY(),false);
+        if (me.getButton() == 1) {
+            this.setPoint(me.getX(),this.getHeight()-60,true);
         }
         if (me.getButton() == 2) {
-            this.setPoint(me.getX(),me.getY(),true);
+            this.setPoint(me.getX(),me.getY(),false);
         }
         this.repaint();
     }
@@ -159,16 +171,12 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent me) {
-        if(drag){
-            
-        }
+
     }
 
     @Override
     public void mouseMoved(MouseEvent me) {
         //System.out.println("x:"+me.getX()+" y:"+me.getY());
-      
-        this.setPoint(me.getX(),me.getY(),true);
         p.x = me.getX();
         p.y = me.getY();
         this.repaint();
@@ -180,13 +188,6 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void keyPressed(KeyEvent ke) {
-    //nahoru 38, dolu 40, doprava 39, doleva 37
-        
-        switch(ke.getKeyCode()){
-            case KeyEvent.VK_UP:
-                this.setPoint(400, 200, true);
-                break;
-        }
         this.repaint();
     }
 
@@ -197,7 +198,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        this.repaint();
+        for(Objekt o: this.points){
+            o.animate(this);
+        }
     }
     
 }

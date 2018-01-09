@@ -49,7 +49,6 @@ public class Hra {
         /*Vytvoreni tlačítka*/
         Platno platno = new Platno();
         platno.init();
-        
         restartButton = new JButton("Restart");
         restartButton.addActionListener(new ActionListener(){
             @Override
@@ -62,8 +61,8 @@ public class Hra {
         Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(16,16, BufferedImage.TYPE_INT_ARGB), new Point(8,8), TOOL_TIP_TEXT_KEY);
         
         Container pane = window.getContentPane();
-        pane.add(headLabel,BorderLayout.PAGE_START);
-        pane.add(restartButton,BorderLayout.PAGE_END);
+        //pane.add(headLabel,BorderLayout.PAGE_START);
+        //pane.add(restartButton,BorderLayout.PAGE_END);
         pane.add(platno,BorderLayout.CENTER);
         pane.setCursor(cursor);
         window.setVisible(true);
