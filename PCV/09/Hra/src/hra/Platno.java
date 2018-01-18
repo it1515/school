@@ -22,6 +22,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -35,6 +36,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     private Point p = new Point(100,100);
     private boolean drag;
     ArrayList<Objekt> points;
+    ArrayList<Enemy> enemies;
     private Timer timer;
     public Image img;
     public Image letadlo;
@@ -42,6 +44,8 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     private Font myFont = new Font("Aerial", Font.BOLD, 18);
     public Platno(){
         this.points = new ArrayList();
+        this.enemies = new ArrayList();
+    this.enemies.add(new EnemyPlane1(150, 50));
     }
     
     public void setPoint(int x, int y,boolean fill){
@@ -63,7 +67,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         this.addKeyListener(this);
         this.setFocusable(true);
         img = new ImageIcon(getClass().getResource("img/mapp.jpg")).getImage(); // 800x 2952
-        letadlo = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);;
+        letadlo = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
         this.timer = new Timer(50,this);
         timer.start();   
     }
@@ -92,7 +96,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         BasicStroke stroke = new BasicStroke(tloustka,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER);
         g2.setStroke(stroke);
         g2.setColor(Color.blue);
-        //g2.draw(new Rectangle2D.Double(p.x-rectwidth/2,size.height-70,rectwidth,rectheight));
+        g2.draw(new Rectangle2D.Double(p.x-rectwidth/2,size.height-70,rectwidth,rectheight));
         g2.drawImage(letadlo,p.x-rectwidth/2,size.height-88,null);
     }
     
@@ -127,6 +131,12 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         }
     }
     
+    public void drawEnemies(Graphics g){
+        for(Enemy e: this.enemies){
+            e.paint(g);
+        }
+    }
+    
     public void drawBackground(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         int endOfImg = -2352;
@@ -151,7 +161,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         drawCrosshair(g);
         drawDistance(g,size);
         drawPoints(g);
-        
+        drawEnemies(g);
     }
 
     @Override
@@ -222,11 +232,41 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        this.repaint();
-        for(Objekt o: this.points){
-            o.animate(this);
+       
+        Iterator<Objekt> objIt;
+        Iterator<Enemy> enmIt = this.enemies.iterator();
+        
+        while(enmIt.hasNext()){
+            Enemy e = enmIt.next();
+            
+            if(!e.isActive()){
+                enmIt.remove();
+            }else{
+                objIt = this.points.iterator();
+                while(objIt.hasNext()){
+                    Objekt o = objIt.next();
+                    if(e.detectCollision(o.getPoint(), o.getSize())){
+                        e.hurt(o.getDamage());
+                        o.die();
+                    }
+                }
+                e.move();
+            }
         }
+        
+        objIt = this.points.iterator();
+        
+        while(objIt.hasNext()){
+            Objekt o = objIt.next();
+            if(!o.isActive()){
+                objIt.remove();
+            }else{
+                o.animate(this);
+            }   
+        }
+        
         meters++;
+        this.repaint();
     }
     
 }

@@ -18,6 +18,8 @@ abstract class Objekt {
     protected Color color;
     protected int speed;
     protected boolean fill;
+    protected boolean active = true;
+    protected int damage = 1;
     protected Objekt(int x, int y, boolean fill){
         this.point = new Point(x,y);
         int red = (int)Math.floor(Math.random()*256);
@@ -25,6 +27,20 @@ abstract class Objekt {
         int blue = (int)Math.floor(Math.random()*256);
         this.color = new Color(red,green,blue); 
         this.speed = -10;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+    public int getDamage() {
+        return damage;
+    }
+    public void die(){
+        this.active = false;
+    }
+
+    public boolean isActive() {
+        return active;
     }
     abstract public void setSize(int size);
     abstract public int getSize();
