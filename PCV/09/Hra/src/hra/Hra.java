@@ -27,8 +27,7 @@ import javax.swing.border.EmptyBorder;
  */
 public class Hra {
 
-    private JFrame window;
-    private JButton drawButton;
+    private static JFrame window;
     private JButton restartButton;
     private JLabel headLabel;
     
@@ -73,6 +72,14 @@ public class Hra {
     
     public static void main(String[] args) {
         new Hra("Hra",800,600);
+    }
+    
+    public static int getWidth() {
+    	return window.getWidth();
+    }
+    
+    public static int getHeight() {
+    	return window.getHeight();
     }
     
 }

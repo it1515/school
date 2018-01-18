@@ -38,15 +38,10 @@ public abstract class Enemy {
     
     public void hurt(int damage){
         this.health -= damage;
-        if(this.health <= 0){
-            this.die();
-        }
     }
     
     public boolean detectCollision(Point p, int r){
-        return (this.bounds.contains(new Point(p.y - r, p.x)) || 
-                this.bounds.contains(new Point(p.y, p.x + r)) || 
-                this.bounds.contains(new Point(p.y, p.x - r)));
+        return (this.bounds.contains(new Point(p.x, p.y - r)));
     }
     
     public void die(){
@@ -59,6 +54,10 @@ public abstract class Enemy {
 
     public boolean isActive() {
         return active;
+    }
+    
+    public boolean impact(Rectangle rect) {
+    	return rect.intersects(bounds);
     }
     
     public abstract void paint(Graphics g);

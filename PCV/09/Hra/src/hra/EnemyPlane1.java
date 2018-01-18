@@ -20,12 +20,12 @@ public class EnemyPlane1 extends Enemy{
     
     public EnemyPlane1(int x, int y) {
         super(x, y, 80, 40);
-        texture = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(this.bounds.width, this.bounds.height + 40, Image.SCALE_DEFAULT);
+        texture = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(this.bounds.width, this.bounds.height, Image.SCALE_DEFAULT);
     }
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(texture, this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height + 40, null);
+        g.drawImage(texture, this.bounds.x, this.bounds.y-20, this.bounds.width, this.bounds.height+40, null);
         g.setColor(Color.BLUE);
         g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
     }
