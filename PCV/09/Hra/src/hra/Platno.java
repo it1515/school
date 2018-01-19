@@ -44,9 +44,11 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     public Image img;
     public Image letadlo;
     private Rectangle playerRect;
-    private int meters = 0;
+    private float meters = 1f;
     private int kills = 0;
+    private int score = 0;
     private Font myFont = new Font("Aerial", Font.BOLD, 18);
+    private Font myFont2 = new Font("Aerial", Font.BOLD, 58);
     public Platno(){
     	this.points = new ArrayList<Objekt>();
     	this.enemies = new ArrayList<Enemy>();
@@ -91,6 +93,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     }
     
     public void drawPlayer(Graphics g,Dimension size){
+        if(timer.isRunning()){
         Graphics2D g2 = (Graphics2D) g;
         float tloustka = 3f;
         int rectwidth=80;
@@ -101,32 +104,40 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         playerRect = new Rectangle(p.x-rectwidth/2,size.height-70,rectwidth,rectheight);
         g2.draw(playerRect);
         g2.drawImage(letadlo,p.x-rectwidth/2,size.height-88,null);
+        }
     }
     
      public void drawCrosshair(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-        float tloustka = 2f;
-        int crossW=30;
-        int crossH=30;
-        BasicStroke stroke = new BasicStroke(tloustka,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER);
-        g2.setStroke(stroke);
-        g2.setColor(Color.green);
-        //g2d.drawLine(0, p.y, size.width, p.y);
-        //g2d.drawLine(p.x, 0, p.x, size.height);
-        g2.draw(new Rectangle2D.Double(p.x-crossW/2,p.y,crossW,0));
-        g2.draw(new Rectangle2D.Double(p.x,p.y-crossH/2,0,crossH));
+        if(timer.isRunning()){
+            Graphics2D g2 = (Graphics2D) g;
+            float tloustka = 2f;
+            int crossW=30;
+            int crossH=30;
+            BasicStroke stroke = new BasicStroke(tloustka,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER);
+            g2.setStroke(stroke);
+            g2.setColor(Color.green);
+            //g2d.drawLine(0, p.y, size.width, p.y);
+            //g2d.drawLine(p.x, 0, p.x, size.height);
+            g2.draw(new Rectangle2D.Double(p.x-crossW/2,p.y,crossW,0));
+            g2.draw(new Rectangle2D.Double(p.x,p.y-crossH/2,0,crossH));
+        }
     }
      
     public void drawText(Graphics g,Dimension size){
-        if(meters % 200 == 0)
-            this.spawnRndEnemyLine();
-        String str = "Distance: " + meters/2;
-        String str2 = "Kills: " + kills;
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setFont(myFont);
-        g2.setColor(Color.gray);
-        g2.drawString(str, size.width-170, size.height-80);
-        g2.drawString(str2, size.width-170, size.height-60);
+        if(timer.isRunning()){
+            if((int)meters % 200 == 0)
+                this.spawnRndEnemyLine();
+            String str = "Distance: " + (int)(meters/2);
+            String str2 = "Kills: " + kills;
+            score = (int)meters + kills * 200;
+            String str3 = "Score: " + score;
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setFont(myFont);
+            g2.setColor(Color.gray);
+            g2.drawString(str, size.width-170, size.height-80);
+            g2.drawString(str2, size.width-170, size.height-60);
+            g2.drawString(str3, size.width/2 -60, 60);
+        }
     }
     
     public void drawPoints(Graphics g){
@@ -145,12 +156,24 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         Graphics2D g2d = (Graphics2D) g;
         int endOfImg = -2352;
         int sizeOfImg = 2952;
-        endOfImg+=meters*15;
+        endOfImg+=(int)(meters*5);
         g2d.drawImage(img,0,endOfImg,null);
         for(int i=0;i<meters;i++){
             if(endOfImg > (i * 2952)){
                 g2d.drawImage(img,0,endOfImg - (sizeOfImg*(i+1)),null);
             }
+        }
+    }
+    
+    public void drawEndGame(Graphics g,Dimension size){
+        if(!timer.isRunning()){
+            String str = "Score: " + score;
+            String str2 = "GAME OVER";
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setFont(myFont2);
+            g2.setColor(Color.red);     
+            g2.drawString(str, size.width/2 -120, 290);
+            g2.drawString(str2, size.width/2 -120, 220);
         }
     }
     
@@ -166,6 +189,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         drawText(g,size);
         drawPoints(g);
         drawEnemies(g);
+        drawEndGame(g,size);
     }
 
     @Override
@@ -260,9 +284,20 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
                 }
                 e.move();
                 if(e.impact(playerRect)) {
-                    e.die();
-                    kills++;
+                    timer.stop();                 
                 }
+            }
+            if(meters < 600){
+                e.setSpeed(3);
+            }
+            if(meters >= 600 && meters < 1800){
+                e.setSpeed(5);
+            }
+            if(meters >= 1800 && meters < 4800){
+                e.setSpeed(8);
+            }
+            if(meters >= 4800){
+                e.setSpeed(12);
             }
         }
         
@@ -275,9 +310,19 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
             }else{
                 o.animate(this);
             }   
+        }     
+        if(meters < 600){
+            meters++;
         }
-        
-        meters++;
+        if(meters >= 600 && meters < 1800){
+            meters += 2;
+        }
+        if(meters >= 1800 && meters < 4800){
+            meters += 4;
+        }
+        if(meters >= 4800){
+            meters += 8;
+        }
         this.repaint();
     }
     

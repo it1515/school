@@ -31,6 +31,10 @@ public abstract class Enemy {
     public int getSpeed() {
         return speed;
     }
+    
+    public void setSpeed(int rychlost) {
+        speed = rychlost;
+    }
 
     public int getHealth() {
         return health;
