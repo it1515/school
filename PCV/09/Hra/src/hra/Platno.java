@@ -35,10 +35,9 @@ import javax.swing.Timer;
 
 
 @SuppressWarnings("serial")
-public class Platno extends JComponent implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
-
-	private Point p = new Point(100,100);
-	static ArrayList<Objekt> points;
+public class Platno extends JComponent implements MouseListener, MouseMotionListener, KeyListener, ActionListener { 
+   private Point p = new Point(100,100);
+    static ArrayList<Objekt> points;
     static ArrayList<Enemy> enemies;
     private Timer timer;
     public Image img;
@@ -73,7 +72,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         this.addMouseMotionListener(this); 
         this.addKeyListener(this);
         this.setFocusable(true);
-        img = new ImageIcon(getClass().getResource("img/mapp.jpg")).getImage(); // 800x 2952
+        img = new ImageIcon(getClass().getResource("img/mapa1.png")).getImage(); // 800x 2952
         letadlo = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
         this.timer = new Timer(30,this);
         timer.start();   
@@ -102,7 +101,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         g2.setStroke(stroke);
         g2.setColor(Color.blue);
         playerRect = new Rectangle(p.x-rectwidth/2,size.height-70,rectwidth,rectheight);
-        g2.draw(playerRect);
+        //g2.draw(playerRect);
         g2.drawImage(letadlo,p.x-rectwidth/2,size.height-88,null);
         }
     }
@@ -191,6 +190,17 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         drawEnemies(g);
         drawEndGame(g,size);
     }
+    
+    public void restart(){
+        if(!timer.isRunning()){
+                enemies.clear();
+                points.clear();
+                meters = 0;
+                kills = 0;
+                score = 0;
+                timer.start();
+        }
+    }
 
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -249,6 +259,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         switch(ke.getKeyCode()){
             case KeyEvent.VK_UP:
                 timer.stop();
+                break;
+            case KeyEvent.VK_R:
+                restart();
                 break;
         }
     }

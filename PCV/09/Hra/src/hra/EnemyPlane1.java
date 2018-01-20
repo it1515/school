@@ -27,7 +27,7 @@ public class EnemyPlane1 extends Enemy{
     public void paint(Graphics g) {
         g.drawImage(texture, this.bounds.x, this.bounds.y-20, this.bounds.width, this.bounds.height+40, null);
         g.setColor(Color.BLUE);
-        g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+        //g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
     }
     
 }
