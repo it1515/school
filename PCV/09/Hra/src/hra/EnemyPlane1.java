@@ -26,8 +26,13 @@ public class EnemyPlane1 extends Enemy{
     @Override
     public void paint(Graphics g) {
         g.drawImage(texture, this.bounds.x, this.bounds.y-20, this.bounds.width, this.bounds.height+40, null);
-        g.setColor(Color.BLUE);
-        //g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+        if(num==1)
+            g.setColor(Color.BLUE);
+        if(num==2)
+            g.setColor(Color.GREEN);
+        if(num==3)
+            g.setColor(Color.RED);
+        g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
     }
     
 }

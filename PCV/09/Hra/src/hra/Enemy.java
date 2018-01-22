@@ -8,6 +8,7 @@ package hra;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Random;
 
 /**
  *
@@ -18,10 +19,14 @@ public abstract class Enemy {
     protected Rectangle bounds;
     protected int speed  = 3;
     protected int health = 5;
+    protected int num;
     protected boolean active = true;
     
     public Enemy(int x, int y, int w, int h) {
         this.bounds = new Rectangle(x, y, w, h);
+        Random rand = new Random();
+        num = rand.nextInt(3)+1;
+        randomHealth(num);
     }
 
     public Rectangle getBounds() {
@@ -34,6 +39,18 @@ public abstract class Enemy {
     
     public void setSpeed(int rychlost) {
         speed = rychlost;
+    }
+    
+    public void randomHealth(int rndCislo){
+        if(rndCislo == 1){
+            health = 5;
+        }
+        if(rndCislo == 2){
+            health = 10;
+        }
+        if(rndCislo == 3){
+            health = 20;
+        }
     }
 
     public int getHealth() {
