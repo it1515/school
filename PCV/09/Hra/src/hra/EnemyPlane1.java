@@ -27,12 +27,10 @@ public class EnemyPlane1 extends Enemy{
     public void paint(Graphics g) {
         g.drawImage(texture, this.bounds.x, this.bounds.y-20, this.bounds.width, this.bounds.height+40, null);
         //TODO: Fade barvy z červene do bile
-        if(health<=5)
-            g.setColor(Color.BLUE);
-        if(health>5 && health<=10)
-            g.setColor(Color.GREEN);
-        if(health>10 && health<=20)
-            g.setColor(Color.RED);
+        int red = (int)((200 / 20f) * health);
+        int iNred = 255 - (int)((255f / 20f) * health);       
+        Color color = new Color(255,iNred,iNred, red);
+        g.setColor(color);
         g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
     }
     
