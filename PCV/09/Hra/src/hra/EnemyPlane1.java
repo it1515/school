@@ -26,11 +26,12 @@ public class EnemyPlane1 extends Enemy{
     @Override
     public void paint(Graphics g) {
         g.drawImage(texture, this.bounds.x, this.bounds.y-20, this.bounds.width, this.bounds.height+40, null);
-        if(num==1)
+        //TODO: Fade barvy z červene do bile
+        if(health<=5)
             g.setColor(Color.BLUE);
-        if(num==2)
+        if(health>5 && health<=10)
             g.setColor(Color.GREEN);
-        if(num==3)
+        if(health>10 && health<=20)
             g.setColor(Color.RED);
         g.drawRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
     }

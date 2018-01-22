@@ -132,10 +132,10 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
             String str3 = "Score: " + score;
             Graphics2D g2 = (Graphics2D) g;
             g2.setFont(myFont);
-            g2.setColor(Color.gray);
-            g2.drawString(str, size.width-170, size.height-80);
-            g2.drawString(str2, size.width-170, size.height-60);
-            g2.drawString(str3, size.width/2 -60, 60);
+            g2.setColor(Color.black);
+            g2.drawString(str, size.width-180, size.height-80);
+            g2.drawString(str2, size.width-180, size.height-60);
+            g2.drawString(str3, size.width/2 -65, 60);
         }
     }
     
@@ -171,8 +171,8 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
             Graphics2D g2 = (Graphics2D) g;
             g2.setFont(myFont2);
             g2.setColor(Color.red);     
-            g2.drawString(str, size.width/2 -120, 290);
-            g2.drawString(str2, size.width/2 -120, 220);
+            g2.drawString(str, size.width/2 -180, 290);
+            g2.drawString(str2, size.width/2 -180, 220);
         }
     }
     
