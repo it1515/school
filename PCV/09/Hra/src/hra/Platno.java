@@ -46,8 +46,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     private float meters = 1f;
     private int kills = 0;
     private int score = 0;
-    private Font myFont = new Font("Aerial", Font.BOLD, 18);
-    private Font myFont2 = new Font("Aerial", Font.BOLD, 58);
+    private boolean startg = false;
+    private Font myFont = new Font("Arial", Font.BOLD, 18);
+    private Font myFont2 = new Font("Arial", Font.BOLD, 58);
     public Platno(){
     	this.points = new ArrayList<Objekt>();
     	this.enemies = new ArrayList<Enemy>();
@@ -75,7 +76,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         img = new ImageIcon(getClass().getResource("img/mapa1.png")).getImage(); // 800x 2952
         letadlo = new ImageIcon(getClass().getResource("img/letadlo.png")).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
         this.timer = new Timer(30,this);
-        timer.start();   
+        //timer.start();   
     }
    
     public void drawAxis(Graphics g, Dimension size){
@@ -140,8 +141,10 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     }
     
     public void drawPoints(Graphics g){
-        for(Objekt o: this.points){
-            o.paint(g);
+        if(timer.isRunning()){
+            for(Objekt o: this.points){
+                o.paint(g);
+            }
         }
     }
     
@@ -165,7 +168,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
     }
     
     public void drawEndGame(Graphics g,Dimension size){
-        if(!timer.isRunning()){
+        if(!timer.isRunning() && startg){
             String str = "Score: " + score;
             String str2 = "GAME OVER";
             Graphics2D g2 = (Graphics2D) g;
@@ -173,6 +176,16 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
             g2.setColor(Color.red);     
             g2.drawString(str, size.width/2 -180, 290);
             g2.drawString(str2, size.width/2 -180, 220);
+        }
+    }
+    
+    public void drawStartGame(Graphics g,Dimension size){
+        if(!timer.isRunning() && !startg){
+            String str = "PRESS S TO START";
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setFont(myFont2);
+            g2.setColor(Color.red);     
+            g2.drawString(str, size.width/2 -280, 290);
         }
     }
     
@@ -189,6 +202,7 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
         drawPoints(g);
         drawEnemies(g);
         drawEndGame(g,size);
+        drawStartGame(g,size);
     }
     
     public void restart(){
@@ -201,6 +215,15 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
                 timer.start();
         }
     }
+    public void startGame(){
+        if(!timer.isRunning()){
+                startg = true;
+                enemies.clear();
+                points.clear();
+                timer.start();
+        }
+    }
+    
 
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -262,6 +285,9 @@ public class Platno extends JComponent implements MouseListener, MouseMotionList
                 break;
             case KeyEvent.VK_R:
                 restart();
+                break;
+            case KeyEvent.VK_S:
+                startGame();
                 break;
         }
     }
