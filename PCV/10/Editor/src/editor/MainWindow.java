@@ -27,17 +27,205 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        toolBar = new javax.swing.JToolBar();
+        NewFileButton = new javax.swing.JButton();
+        OpenFileButton = new javax.swing.JButton();
+        SaveFileButton = new javax.swing.JButton();
+        statusBar = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        MenuFile = new javax.swing.JMenu();
+        NewFileItem = new javax.swing.JMenuItem();
+        OpenFileItem = new javax.swing.JMenuItem();
+        SaveFileItem = new javax.swing.JMenuItem();
+        InfoFileItem = new javax.swing.JMenuItem();
+        EndFile = new javax.swing.JMenuItem();
+        MenuEdit = new javax.swing.JMenu();
+        CutFileItem = new javax.swing.JMenuItem();
+        CopyFileItem = new javax.swing.JMenuItem();
+        PasteFileItem = new javax.swing.JMenuItem();
+        FindFileItem = new javax.swing.JMenuItem();
+        ReplaceFileItem = new javax.swing.JMenuItem();
+        FindAllFileItem = new javax.swing.JMenuItem();
+        MenuSettings = new javax.swing.JMenu();
+        ViewMenu = new javax.swing.JMenu();
+        ToolsItem = new javax.swing.JCheckBoxMenuItem();
+        StatusBarItem = new javax.swing.JCheckBoxMenuItem();
+        BackgroundColorItem = new javax.swing.JMenuItem();
+        FontItem = new javax.swing.JMenuItem();
+        MenuCode = new javax.swing.JMenu();
+        utf8Code = new javax.swing.JRadioButtonMenuItem();
+        windowsCode = new javax.swing.JRadioButtonMenuItem();
+        isoCode = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        toolBar.setRollover(true);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        NewFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/new.png"))); // NOI18N
+        NewFileButton.setText("Nový");
+        NewFileButton.setFocusable(false);
+        NewFileButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        NewFileButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(NewFileButton);
+
+        OpenFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/open.png"))); // NOI18N
+        OpenFileButton.setText("Otevřít");
+        OpenFileButton.setFocusable(false);
+        OpenFileButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        OpenFileButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        OpenFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenFileButtonActionPerformed(evt);
+            }
+        });
+        toolBar.add(OpenFileButton);
+
+        SaveFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/save.png"))); // NOI18N
+        SaveFileButton.setText("Uložit");
+        SaveFileButton.setFocusable(false);
+        SaveFileButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        SaveFileButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(SaveFileButton);
+
+        javax.swing.GroupLayout statusBarLayout = new javax.swing.GroupLayout(statusBar);
+        statusBar.setLayout(statusBarLayout);
+        statusBarLayout.setHorizontalGroup(
+            statusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        statusBarLayout.setVerticalGroup(
+            statusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(jEditorPane1);
+
+        MenuFile.setText("Soubor");
+
+        NewFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        NewFileItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/new-small.png"))); // NOI18N
+        NewFileItem.setText("Nový");
+        MenuFile.add(NewFileItem);
+
+        OpenFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        OpenFileItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/open-small.png"))); // NOI18N
+        OpenFileItem.setText("Otevřít...");
+        OpenFileItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenFileItemActionPerformed(evt);
+            }
+        });
+        MenuFile.add(OpenFileItem);
+
+        SaveFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        SaveFileItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ikony/save-small.png"))); // NOI18N
+        SaveFileItem.setText("Uložit...");
+        MenuFile.add(SaveFileItem);
+
+        InfoFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        InfoFileItem.setText("Informace o souboru");
+        MenuFile.add(InfoFileItem);
+
+        EndFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        EndFile.setText("Konec");
+        MenuFile.add(EndFile);
+
+        jMenuBar1.add(MenuFile);
+
+        MenuEdit.setText("Úpravy");
+
+        CutFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        CutFileItem.setText("Vyjmout");
+        CutFileItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CutFileItemActionPerformed(evt);
+            }
+        });
+        MenuEdit.add(CutFileItem);
+
+        CopyFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        CopyFileItem.setText("Kopírovat");
+        CopyFileItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyFileItemActionPerformed(evt);
+            }
+        });
+        MenuEdit.add(CopyFileItem);
+
+        PasteFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        PasteFileItem.setText("Vložit");
+        MenuEdit.add(PasteFileItem);
+
+        FindFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        FindFileItem.setText("Hledat..");
+        MenuEdit.add(FindFileItem);
+
+        ReplaceFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        ReplaceFileItem.setText("Nahradit..");
+        ReplaceFileItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReplaceFileItemActionPerformed(evt);
+            }
+        });
+        MenuEdit.add(ReplaceFileItem);
+
+        FindAllFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        FindAllFileItem.setText("Vybrat vše");
+        MenuEdit.add(FindAllFileItem);
+
+        jMenuBar1.add(MenuEdit);
+
+        MenuSettings.setText("Nastavení");
+
+        ViewMenu.setText("Zobrazení");
+
+        ToolsItem.setSelected(true);
+        ToolsItem.setText("Panel Nástrojů");
+        ToolsItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToolsItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(ToolsItem);
+
+        StatusBarItem.setSelected(true);
+        StatusBarItem.setText("Stavový řádek");
+        StatusBarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusBarItemActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(StatusBarItem);
+
+        MenuSettings.add(ViewMenu);
+
+        BackgroundColorItem.setText("Barva pozadí..");
+        MenuSettings.add(BackgroundColorItem);
+
+        FontItem.setText("Písmo..");
+        MenuSettings.add(FontItem);
+
+        MenuCode.setText("Kodovaní znaků..");
+
+        buttonGroup1.add(utf8Code);
+        utf8Code.setSelected(true);
+        utf8Code.setText("UTF-8");
+        MenuCode.add(utf8Code);
+
+        buttonGroup1.add(windowsCode);
+        windowsCode.setText("Windows 1250");
+        MenuCode.add(windowsCode);
+
+        buttonGroup1.add(isoCode);
+        isoCode.setText("ISO-8859-2");
+        MenuCode.add(isoCode);
+
+        MenuSettings.add(MenuCode);
+
+        jMenuBar1.add(MenuSettings);
 
         setJMenuBar(jMenuBar1);
 
@@ -45,15 +233,65 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 463, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OpenFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OpenFileButtonActionPerformed
+
+    private void OpenFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OpenFileItemActionPerformed
+
+    private void CopyFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyFileItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CopyFileItemActionPerformed
+
+    private void ReplaceFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReplaceFileItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReplaceFileItemActionPerformed
+
+    private void CutFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CutFileItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CutFileItemActionPerformed
+
+    private void ToolsItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToolsItemActionPerformed
+        if (ToolsItem.isSelected()){
+            toolBar.setVisible(true);
+        } else {
+            toolBar.setVisible(false);
+        }
+    }//GEN-LAST:event_ToolsItemActionPerformed
+
+    private void StatusBarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusBarItemActionPerformed
+        if (StatusBarItem.isSelected()){
+            statusBar.setVisible(true);
+        } else {
+            statusBar.setVisible(false);
+        }
+    }//GEN-LAST:event_StatusBarItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,8 +329,37 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem BackgroundColorItem;
+    private javax.swing.JMenuItem CopyFileItem;
+    private javax.swing.JMenuItem CutFileItem;
+    private javax.swing.JMenuItem EndFile;
+    private javax.swing.JMenuItem FindAllFileItem;
+    private javax.swing.JMenuItem FindFileItem;
+    private javax.swing.JMenuItem FontItem;
+    private javax.swing.JMenuItem InfoFileItem;
+    private javax.swing.JMenu MenuCode;
+    private javax.swing.JMenu MenuEdit;
+    private javax.swing.JMenu MenuFile;
+    private javax.swing.JMenu MenuSettings;
+    private javax.swing.JButton NewFileButton;
+    private javax.swing.JMenuItem NewFileItem;
+    private javax.swing.JButton OpenFileButton;
+    private javax.swing.JMenuItem OpenFileItem;
+    private javax.swing.JMenuItem PasteFileItem;
+    private javax.swing.JMenuItem ReplaceFileItem;
+    private javax.swing.JButton SaveFileButton;
+    private javax.swing.JMenuItem SaveFileItem;
+    private javax.swing.JCheckBoxMenuItem StatusBarItem;
+    private javax.swing.JCheckBoxMenuItem ToolsItem;
+    private javax.swing.JMenu ViewMenu;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButtonMenuItem isoCode;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel statusBar;
+    private javax.swing.JToolBar toolBar;
+    private javax.swing.JRadioButtonMenuItem utf8Code;
+    private javax.swing.JRadioButtonMenuItem windowsCode;
     // End of variables declaration//GEN-END:variables
 }
