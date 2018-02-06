@@ -5,6 +5,9 @@
  */
 package editor;
 
+import java.awt.Color;
+import javax.swing.JColorChooser;
+
 /**
  *
  * @author student
@@ -34,8 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
         SaveFileButton = new javax.swing.JButton();
         statusBar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        editor = new javax.swing.JEditorPane();
+        menuBar = new javax.swing.JMenuBar();
         MenuFile = new javax.swing.JMenu();
         NewFileItem = new javax.swing.JMenuItem();
         OpenFileItem = new javax.swing.JMenuItem();
@@ -101,7 +104,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 35, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jEditorPane1);
+        jScrollPane2.setViewportView(editor);
 
         MenuFile.setText("Soubor");
 
@@ -133,7 +136,7 @@ public class MainWindow extends javax.swing.JFrame {
         EndFile.setText("Konec");
         MenuFile.add(EndFile);
 
-        jMenuBar1.add(MenuFile);
+        menuBar.add(MenuFile);
 
         MenuEdit.setText("Úpravy");
 
@@ -176,7 +179,7 @@ public class MainWindow extends javax.swing.JFrame {
         FindAllFileItem.setText("Vybrat vše");
         MenuEdit.add(FindAllFileItem);
 
-        jMenuBar1.add(MenuEdit);
+        menuBar.add(MenuEdit);
 
         MenuSettings.setText("Nastavení");
 
@@ -203,9 +206,19 @@ public class MainWindow extends javax.swing.JFrame {
         MenuSettings.add(ViewMenu);
 
         BackgroundColorItem.setText("Barva pozadí..");
+        BackgroundColorItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackgroundColorItemActionPerformed(evt);
+            }
+        });
         MenuSettings.add(BackgroundColorItem);
 
         FontItem.setText("Písmo..");
+        FontItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FontItemActionPerformed(evt);
+            }
+        });
         MenuSettings.add(FontItem);
 
         MenuCode.setText("Kodovaní znaků..");
@@ -225,9 +238,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         MenuSettings.add(MenuCode);
 
-        jMenuBar1.add(MenuSettings);
+        menuBar.add(MenuSettings);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -293,6 +306,16 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_StatusBarItemActionPerformed
 
+    private void BackgroundColorItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackgroundColorItemActionPerformed
+        Color barva = JColorChooser.showDialog(this, "Vyber si barvu", editor.getBackground());
+        editor.setBackground(barva);
+    }//GEN-LAST:event_BackgroundColorItemActionPerformed
+
+    private void FontItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FontItemActionPerformed
+        Color barva = JColorChooser.showDialog(this, "Vyber si barvu", editor.getForeground());
+        editor.setForeground(barva);
+    }//GEN-LAST:event_FontItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -304,7 +327,7 @@ public class MainWindow extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -353,10 +376,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem ToolsItem;
     private javax.swing.JMenu ViewMenu;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JEditorPane editor;
     private javax.swing.JRadioButtonMenuItem isoCode;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel statusBar;
     private javax.swing.JToolBar toolBar;
     private javax.swing.JRadioButtonMenuItem utf8Code;
