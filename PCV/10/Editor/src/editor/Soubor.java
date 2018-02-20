@@ -41,15 +41,15 @@ public class Soubor {
     return true;
     }
     
-    public Boolean ulozDoSouboru(File soubor, String charset)
-            throws FileNotFoundException {
-    try {
-        OutputStream outputStream = new FileOutputStream(soubor);
-        Writer writer = new OutputStreamWriter(outputStream,charset);
-        writer.write(data);
-    } catch (IOException e) {
-        return false;
-    }
-    return true;
+    public Boolean ulozDoSouboru(File soubor, String charset) throws FileNotFoundException {
+    try{
+            OutputStream os = new FileOutputStream(soubor);
+            try(Writer writer = new OutputStreamWriter(os,charset)){
+                writer.write(data);
+            }
+        }catch(IOException ex){
+            return false;
+        }
+        return true;
     }
 }

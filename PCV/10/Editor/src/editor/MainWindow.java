@@ -10,10 +10,14 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -23,6 +27,10 @@ public class MainWindow extends javax.swing.JFrame {
     private File soubor;
     private final Soubor txtSoubor = new Soubor();
     private String kodovani = "UTF-8";
+    private String copy = "";
+    private String take = "";
+    private String searchText = "";
+    private String replText = "";
 
     /**
      * Creates new form MainWindow
@@ -45,6 +53,29 @@ public class MainWindow extends javax.swing.JFrame {
         datum.setTime(soubor.lastModified());
         info += "Datum aktualizace: " + datum.toString();       
         return info;
+    }
+    
+    private void searchOperation(String foundTxt,String replacedTxt, Boolean replace){
+        editor.requestFocusInWindow();
+        int startFrom = (editor.getCaretPosition() == editor.getDocument().getLength()) ? 0 : editor.getCaretPosition();
+        int max = editor.getDocument().getLength() - startFrom;
+        int searchIndex = -1;
+        try {
+            searchIndex = editor.getDocument().getText(startFrom, max).indexOf(foundTxt);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        if (searchIndex != -1) {
+            editor.select(searchIndex + startFrom, searchIndex + startFrom + foundTxt.length());
+            if(replace) {
+                editor.replaceSelection(replacedTxt);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Řetězec nebyl nalezen");
+            editor.setSelectionStart(-1);
+            editor.setSelectionEnd(-1);
+        }
     }
     
     /**
@@ -217,6 +248,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         FindFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         FindFileItem.setText("Hledat..");
+        FindFileItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindFileItemActionPerformed(evt);
+            }
+        });
         MenuEdit.add(FindFileItem);
 
         ReplaceFileItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
@@ -357,11 +393,18 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_CopyFileItemActionPerformed
 
     private void ReplaceFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReplaceFileItemActionPerformed
-        // TODO add your handling code here:
+        NahradDialog nahraditDialog = new NahradDialog(this,true,searchText,replText);
+        if(nahraditDialog.showDialog().equals("Nahradit")){
+            editor.requestFocusInWindow();
+            searchText = nahraditDialog.getReplacedText();
+            replText = nahraditDialog.getNewText();
+            this.searchOperation(searchText,replText,true);
+            
+        }
     }//GEN-LAST:event_ReplaceFileItemActionPerformed
 
     private void CutFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CutFileItemActionPerformed
-        // TODO add your handling code here:
+        take = editor.getSelectedText();
     }//GEN-LAST:event_CutFileItemActionPerformed
 
     private void ToolsItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToolsItemActionPerformed
@@ -411,6 +454,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this,informaceOSouboru(),"Informace",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_InfoFileItemActionPerformed
+
+    private void FindFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindFileItemActionPerformed
+        searchText = JOptionPane.showInputDialog(this, "Zadej hledaný řetězec");
+        this.searchOperation(searchText,null,false);
+    }//GEN-LAST:event_FindFileItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -488,4 +536,5 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem utf8Code;
     private javax.swing.JRadioButtonMenuItem windowsCode;
     // End of variables declaration//GEN-END:variables
+
 }
