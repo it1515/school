@@ -6,6 +6,7 @@
 package editor;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -429,8 +430,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_BackgroundColorItemActionPerformed
 
     private void FontItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FontItemActionPerformed
-        Color barva = JColorChooser.showDialog(this, "Vyber si barvu", editor.getForeground());
-        editor.setForeground(barva);
+        Color color = editor.getForeground();
+        Font font = editor.getFont();
+        FontDialog fontDialog = new FontDialog(this,true,font ,color);
+        //Color barva = JColorChooser.showDialog(this, "Vyber si barvu", editor.getForeground());
+        //editor.setForeground(barva);
     }//GEN-LAST:event_FontItemActionPerformed
 
     private void SaveFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileItemActionPerformed
@@ -451,7 +455,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveFileItemActionPerformed
 
     private void InfoFileItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InfoFileItemActionPerformed
-
         JOptionPane.showMessageDialog(this,informaceOSouboru(),"Informace",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_InfoFileItemActionPerformed
 
