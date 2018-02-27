@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<slovnik>
+	<slovo id="1" >
+		<cs>počítač</cs>
+		<en>computer</en>
+	</slovo>
+	<slovo id="6" >
+		<cs>oheň</cs>
+		<en>fire</en>
+	</slovo>
+	<slovo id="7" >
+		<cs>slovo</cs>
+		<en>word</en>
+	</slovo>
+	<slovo id="9" >
+		<cs>stůl</cs>
+		<en>table</en>
+	</slovo>
+	<slovo id="12" >
+		<cs>zima</cs>
+		<en>winter</en>
+	</slovo>
+</slovnik>
