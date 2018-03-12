@@ -18,7 +18,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -161,20 +160,29 @@ public class MainWindow extends javax.swing.JFrame {
         statusBar.setLayout(new java.awt.GridLayout(1, 3, 10, 0));
 
         infoLeft.setBackground(new java.awt.Color(0, 51, 255));
+        infoLeft.setForeground(new java.awt.Color(255, 255, 255));
         infoLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         infoLeft.setText("Název souboru");
+        infoLeft.setOpaque(true);
         statusBar.add(infoLeft);
 
         infoCenter.setBackground(new java.awt.Color(255, 153, 0));
         infoCenter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         infoCenter.setText("Vlastnosti souboru");
+        infoCenter.setOpaque(true);
         statusBar.add(infoCenter);
 
         infoRight.setBackground(new java.awt.Color(0, 204, 0));
         infoRight.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         infoRight.setText("Parametry textu");
+        infoRight.setOpaque(true);
         statusBar.add(infoRight);
 
+        editor.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                editorCaretUpdate(evt);
+            }
+        });
         jScrollPane2.setViewportView(editor);
 
         MenuFile.setText("Soubor");
@@ -337,24 +345,22 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 480, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -378,6 +384,7 @@ public class MainWindow extends javax.swing.JFrame {
             try {
                 txtSoubor.nactiZeSouboru(soubor,kodovani);
                 editor.setText(txtSoubor.getData());
+                infoLeft.setText(soubor.getName());
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this,"Požadovaný soubor nebyl nalezen!","Chyba",JOptionPane.ERROR_MESSAGE);
             }
@@ -431,8 +438,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void FontItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FontItemActionPerformed
         Color color = editor.getForeground();
+        Color bgcolor = editor.getBackground();
         Font font = editor.getFont();
-        FontDialog fontDialog = new FontDialog(this,true,font ,color);
+        FontDialog fontDialog = new FontDialog(this,true,font ,color,bgcolor);
+        if(fontDialog.showDialog().equals("Save")){
+            editor.setFont(fontDialog.getFont());
+            editor.setForeground(fontDialog.getForegroundColor());
+        }
         //Color barva = JColorChooser.showDialog(this, "Vyber si barvu", editor.getForeground());
         //editor.setForeground(barva);
     }//GEN-LAST:event_FontItemActionPerformed
@@ -462,6 +474,37 @@ public class MainWindow extends javax.swing.JFrame {
         searchText = JOptionPane.showInputDialog(this, "Zadej hledaný řetězec");
         this.searchOperation(searchText,null,false);
     }//GEN-LAST:event_FindFileItemActionPerformed
+
+    private void editorCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_editorCaretUpdate
+        String txt = editor.getText();
+        int radky = 1;
+        int znaky=txt.length();
+        int wordCount = 0;
+        boolean word = false;
+        int endOfLine = txt.length() - 1;
+        
+        for (int i = 0; i < txt.length(); i++) {
+            if (Character.isLetter(txt.charAt(i)) && i != endOfLine) {
+                word = true;
+            } else if (!Character.isLetter(txt.charAt(i)) && word) {
+                wordCount++;
+                word = false;
+            } else if (Character.isLetter(txt.charAt(i)) && i == endOfLine) {
+                wordCount++;
+            }
+        }
+        
+        for(char ch: txt.toCharArray()){
+            if(ch == '\n')
+                radky++;
+        }
+        
+        String rinfo = "<html>";
+        rinfo += "počet znaků: " + znaky + "<br/>";
+        rinfo += " počet řádků: " + radky + "<br/>";
+        rinfo += " počet slov: " + wordCount + "</html>";
+        infoRight.setText(rinfo);
+    }//GEN-LAST:event_editorCaretUpdate
 
     /**
      * @param args the command line arguments

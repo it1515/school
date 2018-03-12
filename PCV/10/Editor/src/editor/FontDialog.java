@@ -15,30 +15,38 @@ import javax.swing.JColorChooser;
  * @author student
  */
 public class FontDialog extends javax.swing.JDialog {
-
+    String actionButton = "Storno";
+    
     /**
      * Creates new form FontDialog
      */
-    public FontDialog(java.awt.Frame parent, boolean modal,Font font,Color color) {
+    public FontDialog(java.awt.Frame parent, boolean modal,Font font,Color color,Color bgcolor) {
         super(parent, modal);
-        testText.setForeground(color);
         initComponents();
+        testText.setForeground(color);
+        testText.setBackground(bgcolor);
+        this.font = font;
+        typPisma.setListData(fontList);
     }
     
+    private Font font;
+    private Color barva;
     String[] fontList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-    for (String s : fontList) {
-        typPisma.addItem(s);
+           
+    public Font getFont(){
+        font = new Font(typPisma.getSelectedValue(), Font.PLAIN, (int) size.getValue());
+        return font;
     }
     
-    String fontFamily = font.getFamily();
-    
-    for(int i = 0; i < typPisma.getItemCount(); i++){
-        if(fontFamily.equalsIgnoreCase(typPisma.getItemAt(i).toString()).equals(font)){
-            typPisma.setSelectedIndex(i);
-            break;
-        }
+    public Color getForegroundColor(){
+        return barva;
     }
+    
+    public String showDialog() {
+        this.setVisible(true);
+        return actionButton;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +61,8 @@ public class FontDialog extends javax.swing.JDialog {
         saveButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         typPisma = new javax.swing.JList<>();
+        storno = new javax.swing.JButton();
+        size = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,34 +73,65 @@ public class FontDialog extends javax.swing.JDialog {
             }
         });
 
+        testText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        testText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         testText.setText("TEST TEXT");
+        testText.setToolTipText("");
 
-        saveButton.setText("Uložit změny");
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         typPisma.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        typPisma.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                typPismaValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(typPisma);
+
+        storno.setText("Storno");
+        storno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stornoActionPerformed(evt);
+            }
+        });
+
+        size.setModel(new javax.swing.SpinnerNumberModel(24, 12, 72, 2));
+        size.setToolTipText("Font Size");
+        size.setAutoscrolls(true);
+        size.setFocusCycleRoot(true);
+        size.setName(""); // NOI18N
+        size.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sizeStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fontColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(testText))
-                        .addGap(70, 70, 70)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(saveButton)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(saveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fontColorButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(size, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(testText, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(storno, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,12 +139,17 @@ public class FontDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(testText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(fontColorButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(saveButton)
+                        .addComponent(testText, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(size, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fontColorButton)
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(storno))
                 .addGap(22, 22, 22))
         );
 
@@ -112,15 +158,37 @@ public class FontDialog extends javax.swing.JDialog {
 
     
     private void fontColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontColorButtonActionPerformed
-        Color barva = JColorChooser.showDialog(this, "Vyber si barvu", testText.getForeground());
+        barva = JColorChooser.showDialog(this, "Vyber si barvu", testText.getForeground());
         testText.setForeground(barva);
     }//GEN-LAST:event_fontColorButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        actionButton = "Save";
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void sizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sizeStateChanged
+        testText.setFont(getFont());
+    }//GEN-LAST:event_sizeStateChanged
+
+    private void stornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stornoActionPerformed
+        actionButton = "Storno";
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_stornoActionPerformed
+
+    private void typPismaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_typPismaValueChanged
+        testText.setFont(getFont());
+    }//GEN-LAST:event_typPismaValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton fontColorButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton saveButton;
+    private javax.swing.JSpinner size;
+    private javax.swing.JButton storno;
     private javax.swing.JTextField testText;
     private javax.swing.JList<String> typPisma;
     // End of variables declaration//GEN-END:variables
