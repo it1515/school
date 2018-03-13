@@ -65,7 +65,7 @@ public class OknoSlovnik extends javax.swing.JFrame {
             /* Vrací informaci, zda je možné buňku editovat */
             @Override
             public boolean isCellEditable(int row, int column) {
-                return true;
+                return false;
             }
         });
         /* Do proměnné model je uložen výchozí model tabulky */
@@ -692,13 +692,23 @@ public class OknoSlovnik extends javax.swing.JFrame {
     }//GEN-LAST:event_jazykActionPerformed
 
     private void testBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testBtnActionPerformed
+
         /* zjištění id podle označeného řádku tabulky (z prvního sloupce - index 0) */
         int rnd = 12;
         int id = (int) tabulka.getModel().getValueAt(tabulka.getSelectedRow(), 0);
+        int numberRow = (int) tabulka.getModel().getRowCount();
         /* Zjistí slovíčka ve vyznačeném řádku tabulky a uloží je do pole */
-        String[] slova = {tabulka.getModel().getValueAt(tabulka.getSelectedRow(), 1).toString()};
+        String[] slova = new String[numberRow*4];        
+        for(int i=0;i<numberRow*4;i++){           
+            slova[0+(i*4)] = tabulka.getModel().getValueAt(i, 1).toString();
+            slova[1+(i*4)] = tabulka.getModel().getValueAt(i, 2).toString();
+            slova[2+(i*4)] = tabulka.getModel().getValueAt(i, 3).toString();
+            slova[3+(i*4)] = tabulka.getModel().getValueAt(i, 4).toString();            
+//            slova = {tabulka.getModel().getValueAt(i, 1).toString(),tabulka.getModel().getValueAt(i, 2).toString(),tabulka.getModel().getValueAt(i, 3).toString(),tabulka.getModel().getValueAt(i, 4).toString()};
+        }
         /* Otevře dialogové okno a  prostřednictvím konstruktoru předá zvolená slova */
-        testDialog tetDialog = new testDialog(this, true, slova);
+        testDialog testDialog = new testDialog(this, true, slova);
+        testDialog.setTitle("Test");
         
     }//GEN-LAST:event_testBtnActionPerformed
 
