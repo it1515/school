@@ -17,12 +17,13 @@ public class testDialog extends javax.swing.JDialog {
      * @param modal
      * @param slova
      */
-    public testDialog(java.awt.Frame parent, boolean modal, String[] slova) {
+    public testDialog(java.awt.Frame parent, boolean modal, String[][] slova, String[][] invertSlova,  int numberRow) {
         super(parent, modal);
         initComponents();
-        this.csText.setText(slova[0]);
-        this.enText.setText(slova[1]);
-        this.plText.setText(slova[2]);
+        this.csText.setText(slova[0][1]);
+        this.enText.setText(slova[0][2]);
+        this.plText.setText(slova[0][3]);        
+        this.listSlov.setListData(invertSlova[4]);
         this.setVisible(true);
     }
     
@@ -75,6 +76,12 @@ public class testDialog extends javax.swing.JDialog {
         start.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startActionPerformed(evt);
+            }
+        });
+
+        obtiznost.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                obtiznostStateChanged(evt);
             }
         });
 
@@ -147,12 +154,13 @@ public class testDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(obtiznost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(pocet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5)))
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(obtiznost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
@@ -173,6 +181,10 @@ public class testDialog extends javax.swing.JDialog {
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_startActionPerformed
+
+    private void obtiznostStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_obtiznostStateChanged
+
+    }//GEN-LAST:event_obtiznostStateChanged
 
     /**
      * @param args the command line arguments

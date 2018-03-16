@@ -698,16 +698,26 @@ public class OknoSlovnik extends javax.swing.JFrame {
         int id = (int) tabulka.getModel().getValueAt(tabulka.getSelectedRow(), 0);
         int numberRow = (int) tabulka.getModel().getRowCount();
         /* Zjistí slovíčka ve vyznačeném řádku tabulky a uloží je do pole */
-        String[] slova = new String[numberRow*4];        
-        for(int i=0;i<numberRow*4;i++){           
-            slova[0+(i*4)] = tabulka.getModel().getValueAt(i, 1).toString();
-            slova[1+(i*4)] = tabulka.getModel().getValueAt(i, 2).toString();
-            slova[2+(i*4)] = tabulka.getModel().getValueAt(i, 3).toString();
-            slova[3+(i*4)] = tabulka.getModel().getValueAt(i, 4).toString();            
+        String[][] slova = new String[numberRow*4][5];
+        String[][] invertSlova = new String[5][numberRow*4];
+        
+        //slova[0] = tabulka.getModel().getValueAt(0, 1).toString();
+        for(int i=0;i<numberRow;i++){
+            slova[i][0] = tabulka.getModel().getValueAt(i, 0).toString();
+            slova[i][1] = tabulka.getModel().getValueAt(i, 1).toString();
+            slova[i][2] = tabulka.getModel().getValueAt(i, 2).toString();
+            slova[i][3] = tabulka.getModel().getValueAt(i, 3).toString();
+            slova[i][4] = tabulka.getModel().getValueAt(i, 4).toString();
+            invertSlova[0][i] = tabulka.getModel().getValueAt(i, 0).toString();
+            invertSlova[1][i] = tabulka.getModel().getValueAt(i, 1).toString();
+            invertSlova[2][i] = tabulka.getModel().getValueAt(i, 2).toString();
+            invertSlova[3][i] = tabulka.getModel().getValueAt(i, 3).toString();
+            invertSlova[4][i] = tabulka.getModel().getValueAt(i, 4).toString();
 //            slova = {tabulka.getModel().getValueAt(i, 1).toString(),tabulka.getModel().getValueAt(i, 2).toString(),tabulka.getModel().getValueAt(i, 3).toString(),tabulka.getModel().getValueAt(i, 4).toString()};
         }
+        
         /* Otevře dialogové okno a  prostřednictvím konstruktoru předá zvolená slova */
-        testDialog testDialog = new testDialog(this, true, slova);
+        testDialog testDialog = new testDialog(this, true, slova, invertSlova, numberRow);
         testDialog.setTitle("Test");
         
     }//GEN-LAST:event_testBtnActionPerformed
