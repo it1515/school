@@ -5,30 +5,66 @@
  */
 package dictionary;
 
+import java.util.Random;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+
 /**
  *
  * @author student
  */
 public class testDialog extends javax.swing.JDialog {
     private String actionButton = "Storno";
+    private int minpocetslov = 1, maxpocetslov = 10;
+    private int numberRow2;
+    private int pocetSpravne;
+    private int poradi = 0;
+    private int [] randNums;
+    private String[][] slova2;
     /**
      * Creates new form testDialog
      * @param parent
      * @param modal
      * @param slova
+     * @param invertSlova
+     * @param numberRow
      */
     public testDialog(java.awt.Frame parent, boolean modal, String[][] slova, String[][] invertSlova,  int numberRow) {
         super(parent, modal);
-        initComponents();
-        this.csText.setText(slova[0][1]);
-        this.enText.setText(slova[0][2]);
-        this.plText.setText(slova[0][3]);        
-        this.listSlov.setListData(invertSlova[4]);
+        initComponents();      
+        this.listSlov.setListData(invertSlova[1]);
+        slova2 = slova;
+        numberRow2 = numberRow;
+        this.pocet.setValue(5);
+        bar.setMaximum(5);
         this.setVisible(true);
     }
     
+    private String[] makeArray(int numberRow, String[][] slova,int level,int jazyk){
+        String[] arrayByObtiznost = new String[numberRow];
+        int num = 0;
+        for(int i=0; i<numberRow;i++){
+            int islovo = Integer.parseInt(slova[i][4]);
+            if(islovo == level){
+                arrayByObtiznost[num] = slova[i][jazyk];
+                num++;
+            }
+        }
+        String[] arrayByObtiznostX = new String[num];
+        for(int i = 0;i<num;i++){
+            arrayByObtiznostX[i] = arrayByObtiznost[i];
+        }
+        return arrayByObtiznostX;
+    }
     
-
+    private int[] makeRandNums(String [] array,int j){
+        int[] iarray = new int[j];
+        for(int i = 0;i<j-1;i++){
+            Random ran = new Random();
+            iarray[i] = ran.nextInt(array.length);
+        }
+        return iarray;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +80,7 @@ public class testDialog extends javax.swing.JDialog {
         storno = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listSlov = new javax.swing.JList<>();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        bar = new javax.swing.JProgressBar();
         start = new javax.swing.JButton();
         obtiznost = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
@@ -53,6 +89,7 @@ public class testDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         pocet = new javax.swing.JSpinner();
+        next = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,6 +107,9 @@ public class testDialog extends javax.swing.JDialog {
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(listSlov);
+
+        bar.setOpaque(true);
+        bar.setStringPainted(true);
 
         start.setText("Test");
         start.setToolTipText("");
@@ -95,51 +135,74 @@ public class testDialog extends javax.swing.JDialog {
 
         jLabel5.setText("počet slov");
 
+        pocet.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pocetStateChanged(evt);
+            }
+        });
+
+        next.setText("Další");
+        next.setToolTipText("");
+        next.setEnabled(false);
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(start)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(obtiznost, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(csText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(enText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(plText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(storno, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pocet, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(72, 72, 72))
+                        .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(17, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(start)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(obtiznost, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(csText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(enText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(plText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(pocet, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(72, 72, 72))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(next)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(storno)
+                                .addGap(112, 112, 112))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(csText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
@@ -151,9 +214,9 @@ public class testDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(plText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(next))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(pocet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,11 +226,13 @@ public class testDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(storno)
                     .addComponent(start))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         pack();
@@ -179,18 +244,67 @@ public class testDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_stornoActionPerformed
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
-        // TODO add your handling code here:
+        String [] aCzech = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),1);
+        String [] aEnglish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),2);
+        String [] aPolish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),3);
+        pocetSpravne = 0;
+        obtiznost.setEnabled(false);
+        pocet.setEnabled(false);
+        listSlov.setEnabled(false);
+        next.setEnabled(true);
+        csText.setEnabled(false);
+        enText.setText(null);
+        plText.setText(null);
+        randNums = makeRandNums(aCzech,(int)pocet.getValue());
+        poradi = 0;
+        bar.setValue(0);
+        csText.setText(aCzech[randNums[poradi]]);
     }//GEN-LAST:event_startActionPerformed
 
     private void obtiznostStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_obtiznostStateChanged
-
+        if((int)obtiznost.getValue()>5)
+            obtiznost.setValue(5);
+        if((int)obtiznost.getValue()<1)
+            obtiznost.setValue(1);
+        listSlov.setListData(makeArray(numberRow2,slova2,(int)obtiznost.getValue(),1));
     }//GEN-LAST:event_obtiznostStateChanged
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        String [] aCzech = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),1);
+        String [] aEnglish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),2);
+        String [] aPolish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),3);
+        if(poradi < randNums.length){
+            if(enText.getText().equals(aEnglish[randNums[poradi]])){
+                pocetSpravne++;     
+                bar.setValue(bar.getValue()+1);
+            }
+            if(poradi < randNums.length-1){
+            poradi++;
+            csText.setText(aCzech[randNums[poradi]]);
+            }
+            else{
+            obtiznost.setEnabled(true);
+            pocet.setEnabled(true);
+            listSlov.setEnabled(true);
+            next.setEnabled(false);           
+            }
+        }       
+    }//GEN-LAST:event_nextActionPerformed
+
+    private void pocetStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pocetStateChanged
+        bar.setMaximum((int)pocet.getValue());
+        if((int)pocet.getValue()>maxpocetslov)
+        pocet.setValue(maxpocetslov);
+        if((int)pocet.getValue()<minpocetslov)
+        pocet.setValue(minpocetslov);
+    }//GEN-LAST:event_pocetStateChanged
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar bar;
     private javax.swing.JTextField csText;
     private javax.swing.JTextField enText;
     private javax.swing.JLabel jLabel1;
@@ -198,9 +312,9 @@ public class testDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listSlov;
+    private javax.swing.JButton next;
     private javax.swing.JSpinner obtiznost;
     private javax.swing.JTextField plText;
     private javax.swing.JSpinner pocet;

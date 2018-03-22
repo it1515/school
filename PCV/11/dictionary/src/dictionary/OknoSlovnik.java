@@ -698,8 +698,8 @@ public class OknoSlovnik extends javax.swing.JFrame {
         int id = (int) tabulka.getModel().getValueAt(tabulka.getSelectedRow(), 0);
         int numberRow = (int) tabulka.getModel().getRowCount();
         /* Zjistí slovíčka ve vyznačeném řádku tabulky a uloží je do pole */
-        String[][] slova = new String[numberRow*4][5];
-        String[][] invertSlova = new String[5][numberRow*4];
+        String[][] slova = new String[numberRow][5];
+        String[][] invertSlova = new String[5][numberRow];
         
         //slova[0] = tabulka.getModel().getValueAt(0, 1).toString();
         for(int i=0;i<numberRow;i++){
