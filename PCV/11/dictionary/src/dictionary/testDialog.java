@@ -252,6 +252,7 @@ public class testDialog extends javax.swing.JDialog {
         pocet.setEnabled(false);
         listSlov.setEnabled(false);
         next.setEnabled(true);
+        start.setEnabled(false);
         csText.setEnabled(false);
         enText.setText(null);
         plText.setText(null);
@@ -274,7 +275,7 @@ public class testDialog extends javax.swing.JDialog {
         String [] aEnglish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),2);
         String [] aPolish = makeArray(numberRow2,slova2,(int)obtiznost.getValue(),3);
         if(poradi < randNums.length){
-            if(enText.getText().equals(aEnglish[randNums[poradi]])){
+            if(enText.getText().equals(aEnglish[randNums[poradi]]) && plText.getText().equals(aPolish[randNums[poradi]])){
                 pocetSpravne++;     
                 bar.setValue(bar.getValue()+1);
             }
@@ -286,7 +287,8 @@ public class testDialog extends javax.swing.JDialog {
             obtiznost.setEnabled(true);
             pocet.setEnabled(true);
             listSlov.setEnabled(true);
-            next.setEnabled(false);           
+            next.setEnabled(false);
+            start.setEnabled(true);
             }
         }       
     }//GEN-LAST:event_nextActionPerformed
