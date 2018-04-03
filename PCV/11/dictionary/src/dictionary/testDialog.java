@@ -38,6 +38,7 @@ public class testDialog extends javax.swing.JDialog {
         obtiznost.setValue(1);
         pocet.setValue(5);
         bar.setMaximum(5);
+        bar2.setMaximum(5);
         listSlov.setListData(makeArray(numberRow2,slova2,(int)obtiznost.getValue(),ijazyky));
         this.setVisible(true);
     }
@@ -106,6 +107,7 @@ public class testDialog extends javax.swing.JDialog {
         csRadioBtn = new javax.swing.JRadioButton();
         enRadioBtn = new javax.swing.JRadioButton();
         plRadioBtn = new javax.swing.JRadioButton();
+        bar2 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,7 +126,6 @@ public class testDialog extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(listSlov);
 
-        bar.setOpaque(true);
         bar.setStringPainted(true);
 
         start.setText("Test");
@@ -185,6 +186,8 @@ public class testDialog extends javax.swing.JDialog {
             }
         });
 
+        bar2.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,7 +197,7 @@ public class testDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 22, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(start)
@@ -204,12 +207,8 @@ public class testDialog extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(obtiznost, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(storno)
-                                .addGap(112, 112, 112))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -228,12 +227,19 @@ public class testDialog extends javax.swing.JDialog {
                                             .addComponent(csText, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                                             .addComponent(enText)
                                             .addComponent(plText))
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
+                                        .addContainerGap())))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(storno)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bar2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -260,13 +266,15 @@ public class testDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bar2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(storno)
-                    .addComponent(start))
-                .addContainerGap())
+                    .addComponent(start)
+                    .addComponent(storno))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,6 +301,7 @@ public class testDialog extends javax.swing.JDialog {
         randNums = makeRandNums(aCzech,(int)pocet.getValue());
         poradi = 0;
         bar.setValue(0);
+        bar2.setValue(0);
         if(ijazyky == 1){
             csText.setEnabled(false);
             enText.setText(null);
@@ -346,6 +355,7 @@ public class testDialog extends javax.swing.JDialog {
             }
             if(poradi < randNums.length-1){
                 poradi++;
+                bar2.setValue(bar2.getValue()+1);
                 if(ijazyky == 1){  
                     enText.setText("");
                     plText.setText("");
@@ -363,6 +373,7 @@ public class testDialog extends javax.swing.JDialog {
                 }
             }
             else{
+                bar2.setValue(bar2.getValue()+1);
                 obtiznost.setEnabled(true);
                 pocet.setEnabled(true);
                 listSlov.setEnabled(true);
@@ -384,6 +395,7 @@ public class testDialog extends javax.swing.JDialog {
 
     private void pocetStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pocetStateChanged
         bar.setMaximum((int)pocet.getValue());
+        bar2.setMaximum((int)pocet.getValue());
         if((int)pocet.getValue()>maxpocetslov)
             pocet.setValue(maxpocetslov);
         if((int)pocet.getValue()<minpocetslov)
@@ -411,6 +423,7 @@ public class testDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar bar;
+    private javax.swing.JProgressBar bar2;
     private javax.swing.JRadioButton csRadioBtn;
     private javax.swing.JTextField csText;
     private javax.swing.JRadioButton enRadioBtn;
