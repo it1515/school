@@ -319,13 +319,13 @@ public class testDialog extends javax.swing.JDialog {
                     bar.setValue(bar.getValue()+1);
                 }
             }
-            if(ijazyky == 2){
+            if(ijazyky == 2){               
                 if(csText.getText().equals(aCzech[randNums[poradi]]) && plText.getText().equals(aPolish[randNums[poradi]])){
                     pocetSpravne++;     
                     bar.setValue(bar.getValue()+1);
                 }
             }
-            if(ijazyky == 3){
+            if(ijazyky == 3){              
                 if(csText.getText().equals(aCzech[randNums[poradi]]) && enText.getText().equals(aEnglish[randNums[poradi]])){
                     pocetSpravne++;     
                     bar.setValue(bar.getValue()+1);
@@ -333,13 +333,19 @@ public class testDialog extends javax.swing.JDialog {
             }
             if(poradi < randNums.length-1){
                 poradi++;
-                if(ijazyky == 1){         
+                if(ijazyky == 1){  
+                    enText.setText("");
+                    plText.setText("");
                     csText.setText(aCzech[randNums[poradi]]);
                 }
-                if(ijazyky == 2){         
+                if(ijazyky == 2){  
+                    csText.setText("");
+                    plText.setText(""); 
                     enText.setText(aEnglish[randNums[poradi]]);
                 }
-                if(ijazyky == 3){         
+                if(ijazyky == 3){
+                    csText.setText("");
+                    enText.setText("");
                     plText.setText(aPolish[randNums[poradi]]);
                 }
             }

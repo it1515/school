@@ -178,7 +178,6 @@
     </Container>
     <Component class="javax.swing.JProgressBar" name="bar">
       <Properties>
-        <Property name="opaque" type="boolean" value="true"/>
         <Property name="stringPainted" type="boolean" value="true"/>
       </Properties>
     </Component>
