@@ -61,11 +61,24 @@ public class testDialog extends javax.swing.JDialog {
     
     private int[] makeRandNums(String [] array,int j){
         int[] iarray = new int[j];
+        int cislo;
         for(int i = 0;i<j-1;i++){
+            do{
             Random ran = new Random();
-            iarray[i] = ran.nextInt(array.length);
+            cislo = ran.nextInt(array.length);
+            }while(checkArray(cislo,iarray,j));
+            iarray[i] = cislo;
         }
         return iarray;
+    }
+    
+    private boolean checkArray(int cislo,int[] iarray,int j){
+        for(int i = 0;i<j-1;i++){
+            if(cislo == iarray[i]){
+                return true;
+            }
+        }
+        return false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
