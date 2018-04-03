@@ -6,6 +6,7 @@
 package dictionary;
 
 import java.util.Random;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
@@ -22,6 +23,7 @@ public class testDialog extends javax.swing.JDialog {
     private int poradi = 0;
     private int [] randNums;
     private String[][] slova2;
+    private String name;
     /**
      * Creates new form testDialog
      * @param parent
@@ -32,7 +34,8 @@ public class testDialog extends javax.swing.JDialog {
      */
     public testDialog(java.awt.Frame parent, boolean modal, String[][] slova, String[][] invertSlova,  int numberRow) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
+        this.setTitle("Test");        
         slova2 = slova;
         numberRow2 = numberRow;
         obtiznost.setValue(1);
@@ -388,6 +391,9 @@ public class testDialog extends javax.swing.JDialog {
                 csRadioBtn.setEnabled(true);
                 enRadioBtn.setEnabled(true);
                 plRadioBtn.setEnabled(true);
+                if((name = (JOptionPane.showInputDialog(this, "Jméno:")))!= null){
+                    JOptionPane.showMessageDialog(this, "Výsledek byl uložen do databáze", "Výborně!", JOptionPane.INFORMATION_MESSAGE);
+                };
             }
         }
         
