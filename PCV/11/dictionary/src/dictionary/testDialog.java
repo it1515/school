@@ -5,6 +5,10 @@
  */
 package dictionary;
 
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -24,6 +28,7 @@ public class testDialog extends javax.swing.JDialog {
     private int [] randNums;
     private String[][] slova2;
     private String name;
+    private Connection spojeni;
     /**
      * Creates new form testDialog
      * @param parent
@@ -83,6 +88,36 @@ public class testDialog extends javax.swing.JDialog {
             }
         }
         return false;
+    }
+    
+    private void dbConnection() {
+        try {
+            /* Připojení k MySQL zajišťuje statická metody getConnection třídy DriveManager
+               Parametry metody getConnection jsou adresa MySQL serveru (včetně určení databáze a kódování) + přístupové údaje (uživatel, heslo)
+               Po přetypování (Connection) je spojení uloženo do atributu spojeni
+             */
+            this.spojeni = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/slovnik?useUnicode=true&characterEncoding=utf-8", "root", "");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Nedošlo k připojení databáze", "Chyba", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private int insertRecord(String enWord, String csWord, String plWord, int obtiznost) {
+        int numRows = 0;
+        try {
+            /* Parametrizovaný dotaz obsahuje 2 parametry */
+            PreparedStatement dotaz = spojeni.prepareStatement("INSERT INTO testy (jmeno, pocet_slov, pocet_spravne, obtiznost) VALUES (?, ?, ?, ?)");
+            /* Dosazení řetězce za první a druhý parametr */
+            dotaz.setString(1, name);
+            dotaz.setInt(2, (int)pocet.getValue());
+            dotaz.setInt(3, (int)bar.getValue());
+            dotaz.setInt(4, obtiznost);
+            /* Aktualizace databáze, návratová hodnota představuje celkový počet záznamů */
+            numRows = dotaz.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Chyba při komunikaci s databází", "Chyba", JOptionPane.ERROR_MESSAGE);
+        }
+        return numRows;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -392,6 +427,7 @@ public class testDialog extends javax.swing.JDialog {
                 enRadioBtn.setEnabled(true);
                 plRadioBtn.setEnabled(true);
                 if((name = (JOptionPane.showInputDialog(this, "Jméno:")))!= null){
+                    
                     JOptionPane.showMessageDialog(this, "Výsledek byl uložen do databáze", "Výborně!", JOptionPane.INFORMATION_MESSAGE);
                 };
             }
