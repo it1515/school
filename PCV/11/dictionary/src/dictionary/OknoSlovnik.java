@@ -717,7 +717,7 @@ public class OknoSlovnik extends javax.swing.JFrame {
         }
         
         /* Otevře dialogové okno a  prostřednictvím konstruktoru předá zvolená slova */
-        testDialog testDialog = new testDialog(this, true, slova, invertSlova, numberRow);
+        testDialog testDialog = new testDialog(this, true, slova, invertSlova, numberRow, spojeni);
         testDialog.setTitle("Test");
         
     }//GEN-LAST:event_testBtnActionPerformed

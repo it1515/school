@@ -37,11 +37,12 @@ public class testDialog extends javax.swing.JDialog {
      * @param invertSlova
      * @param numberRow
      */
-    public testDialog(java.awt.Frame parent, boolean modal, String[][] slova, String[][] invertSlova,  int numberRow) {
+    public testDialog(java.awt.Frame parent, boolean modal, String[][] slova, String[][] invertSlova,  int numberRow, Connection spojeni2) {
         super(parent, modal);
         initComponents();
         this.setTitle("Test");        
         slova2 = slova;
+        spojeni = spojeni2;
         numberRow2 = numberRow;
         obtiznost.setValue(1);
         pocet.setValue(5);
@@ -102,15 +103,15 @@ public class testDialog extends javax.swing.JDialog {
         }
     }
     
-    private int insertRecord(String enWord, String csWord, String plWord, int obtiznost) {
+    private int insertRecord(String name, int pocet, int pocetSpravne, int obtiznost) {
         int numRows = 0;
         try {
             /* Parametrizovaný dotaz obsahuje 2 parametry */
             PreparedStatement dotaz = spojeni.prepareStatement("INSERT INTO testy (jmeno, pocet_slov, pocet_spravne, obtiznost) VALUES (?, ?, ?, ?)");
             /* Dosazení řetězce za první a druhý parametr */
             dotaz.setString(1, name);
-            dotaz.setInt(2, (int)pocet.getValue());
-            dotaz.setInt(3, (int)bar.getValue());
+            dotaz.setInt(2, pocet);
+            dotaz.setInt(3, pocetSpravne);
             dotaz.setInt(4, obtiznost);
             /* Aktualizace databáze, návratová hodnota představuje celkový počet záznamů */
             numRows = dotaz.executeUpdate();
@@ -427,7 +428,7 @@ public class testDialog extends javax.swing.JDialog {
                 enRadioBtn.setEnabled(true);
                 plRadioBtn.setEnabled(true);
                 if((name = (JOptionPane.showInputDialog(this, "Jméno:")))!= null){
-                    
+                    insertRecord(name,(int)pocet.getValue(),(int)bar.getValue(),(int)obtiznost.getValue());
                     JOptionPane.showMessageDialog(this, "Výsledek byl uložen do databáze", "Výborně!", JOptionPane.INFORMATION_MESSAGE);
                 };
             }
