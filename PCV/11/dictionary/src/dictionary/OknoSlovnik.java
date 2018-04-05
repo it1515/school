@@ -277,6 +277,8 @@ public class OknoSlovnik extends javax.swing.JFrame {
         menuInsert = new javax.swing.JMenuItem();
         menuUpdate = new javax.swing.JMenuItem();
         menuDelete = new javax.swing.JMenuItem();
+        menuTest = new javax.swing.JMenu();
+        menuLeaderboard = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -513,6 +515,23 @@ public class OknoSlovnik extends javax.swing.JFrame {
 
         jMenuBar1.add(menuData);
 
+        menuTest.setText("Test");
+        menuTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTestActionPerformed(evt);
+            }
+        });
+
+        menuLeaderboard.setText("Žebříček");
+        menuLeaderboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLeaderboardActionPerformed(evt);
+            }
+        });
+        menuTest.add(menuLeaderboard);
+
+        jMenuBar1.add(menuTest);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -722,6 +741,14 @@ public class OknoSlovnik extends javax.swing.JFrame {
         
     }//GEN-LAST:event_testBtnActionPerformed
 
+    private void menuTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTestActionPerformed
+        
+    }//GEN-LAST:event_menuTestActionPerformed
+
+    private void menuLeaderboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLeaderboardActionPerformed
+        JOptionPane.showMessageDialog(this, "LEADERBOARD!", "Chyba!", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_menuLeaderboardActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -774,6 +801,8 @@ public class OknoSlovnik extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuInsert;
     private javax.swing.JMenuItem menuJSON;
+    private javax.swing.JMenuItem menuLeaderboard;
+    private javax.swing.JMenu menuTest;
     private javax.swing.JMenuItem menuUpdate;
     private javax.swing.JMenuItem menuXML;
     private javax.swing.JLabel pocetZaznamu;
