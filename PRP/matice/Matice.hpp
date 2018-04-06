@@ -17,10 +17,18 @@
 class Matice {
 public:
     Matice();
+    Matice(int,int);
     Matice(const Matice& orig);
     virtual ~Matice();
+    int getValue(int,int) const;
+    int getRows() const;
+    int getColumns() const;
 private:
-
+    int **pointOnPoint; // Pointer On Pointer (Array of pointers)
+    int rows;
+    int columns;
+    void deletePointerArray();
+    void makePointerArray();
 };
 
 #endif /* MATICE_HPP */
