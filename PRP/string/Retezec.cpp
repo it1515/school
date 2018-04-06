@@ -84,7 +84,7 @@ char Retezec::operator [] (int index) const {
     }
     else
     {
-        return this->retezec[0];
+        return this->retezec[this->getPocetPrvku()];
     }
 }
 
@@ -95,7 +95,7 @@ char &Retezec::operator [] (int index) {
     }
     else
     {
-        return this->retezec[0];
+        return this->retezec[this->getPocetPrvku()];
     }
 }
 

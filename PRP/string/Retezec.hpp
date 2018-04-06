@@ -32,6 +32,7 @@ public:
     Retezec operator + (const Retezec&) const;
 private:
     char * retezec;
+    int getLenght(const char*) const;
     int pocetPrvku;
 };
 
